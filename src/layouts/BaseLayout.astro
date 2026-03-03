@@ -1,0 +1,111 @@
+---
+import Footer from '../components/Footer.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import { siteConfig, toAbsoluteSiteUrl } from '../config/site';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const {
+  title,
+  description = siteConfig.description,
+  ogImage = siteConfig.seo.defaultOgImage,
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+const pageTitle = title === siteConfig.name ? title : `${title} | ${siteConfig.name}`;
+const pathName = Astro.url.pathname;
+const canonicalUrl = toAbsoluteSiteUrl(pathName);
+const rootSiteUrl = toAbsoluteSiteUrl('/')?.replace(/\/+$/, '') ?? null;
+const ogImageUrl = ogImage
+  ? ogImage.startsWith('http')
+    ? ogImage
+    : toAbsoluteSiteUrl(ogImage)
+  : null;
+const robotsContent = noindex ? 'noindex, nofollow' : 'index, follow';
+const twitterCard = ogImageUrl ? 'summary_large_image' : 'summary';
+const normalizedJsonLd = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
+const baseJsonLd = rootSiteUrl
+  ? [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        name: siteConfig.name,
+        url: rootSiteUrl,
+        email: siteConfig.contact.email,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Kuala Lumpur',
+          addressCountry: 'MY',
+        },
+        areaServed: 'APAC',
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: siteConfig.name,
+        url: rootSiteUrl,
+        inLanguage: 'en',
+      },
+    ]
+  : [];
+const structuredDataEntries = [...baseJsonLd, ...normalizedJsonLd];
+---
+
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="robots" content={robotsContent} />
+    {canonicalUrl ? <link rel="canonical" href={canonicalUrl} /> : null}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    {canonicalUrl ? <meta property="og:url" content={canonicalUrl} /> : null}
+    {ogImageUrl ? <meta property="og:image" content={ogImageUrl} /> : null}
+    <meta name="twitter:card" content={twitterCard} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    {ogImageUrl ? <meta name="twitter:image" content={ogImageUrl} /> : null}
+    {ogImageUrl ? <meta property="og:image:alt" content={`${siteConfig.name} - ${siteConfig.tagline}`} /> : null}
+    {siteConfig.seo.twitterHandle ? <meta name="twitter:site" content={siteConfig.seo.twitterHandle} /> : null}
+    <meta name="theme-color" content="#0f1d2e" />
+    {
+      structuredDataEntries.map((entry) => (
+        <script type="application/ld+json" set:html={JSON.stringify(entry)} />
+      ))
+    }
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-surface focus:px-3 focus:py-2 focus:text-sm">
+      Skip to content
+    </a>
+    <div class="min-h-screen">
+      <SiteHeader currentPath={pathName} />
+      <main id="main-content" class="px-4 pb-20 sm:px-6 lg:px-8">
+        <div class="mx-auto w-full max-w-6xl">
+          <slot />
+        </div>
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

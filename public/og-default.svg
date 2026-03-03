@@ -1,0 +1,76 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="65" y1="28" x2="1112" y2="602" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#EAF6F5"/>
+      <stop offset="1" stop-color="#F7FBFB"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(237 162) rotate(36.2) scale(332 232)">
+      <stop stop-color="#0F7A74" stop-opacity="0.24"/>
+      <stop offset="1" stop-color="#0F7A74" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1002 76) rotate(127) scale(260 180)">
+      <stop stop-color="#0F1D2E" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#0F1D2E" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glowA)"/>
+  <rect width="1200" height="630" fill="url(#glowB)"/>
+  <rect x="67" y="70" width="1066" height="490" rx="26" fill="white" stroke="#D2D8DC" stroke-width="2"/>
+  <g opacity="0.34">
+    <path d="M67 106H1133" stroke="#AFC0CB"/>
+    <path d="M67 142H1133" stroke="#AFC0CB"/>
+    <path d="M67 178H1133" stroke="#AFC0CB"/>
+    <path d="M67 214H1133" stroke="#AFC0CB"/>
+    <path d="M67 250H1133" stroke="#AFC0CB"/>
+    <path d="M67 286H1133" stroke="#AFC0CB"/>
+    <path d="M67 322H1133" stroke="#AFC0CB"/>
+    <path d="M67 358H1133" stroke="#AFC0CB"/>
+    <path d="M67 394H1133" stroke="#AFC0CB"/>
+    <path d="M67 430H1133" stroke="#AFC0CB"/>
+    <path d="M67 466H1133" stroke="#AFC0CB"/>
+    <path d="M67 502H1133" stroke="#AFC0CB"/>
+    <path d="M103 70V560" stroke="#AFC0CB"/>
+    <path d="M139 70V560" stroke="#AFC0CB"/>
+    <path d="M175 70V560" stroke="#AFC0CB"/>
+    <path d="M211 70V560" stroke="#AFC0CB"/>
+    <path d="M247 70V560" stroke="#AFC0CB"/>
+    <path d="M283 70V560" stroke="#AFC0CB"/>
+    <path d="M319 70V560" stroke="#AFC0CB"/>
+    <path d="M355 70V560" stroke="#AFC0CB"/>
+    <path d="M391 70V560" stroke="#AFC0CB"/>
+    <path d="M427 70V560" stroke="#AFC0CB"/>
+    <path d="M463 70V560" stroke="#AFC0CB"/>
+    <path d="M499 70V560" stroke="#AFC0CB"/>
+    <path d="M535 70V560" stroke="#AFC0CB"/>
+    <path d="M571 70V560" stroke="#AFC0CB"/>
+    <path d="M607 70V560" stroke="#AFC0CB"/>
+    <path d="M643 70V560" stroke="#AFC0CB"/>
+    <path d="M679 70V560" stroke="#AFC0CB"/>
+    <path d="M715 70V560" stroke="#AFC0CB"/>
+    <path d="M751 70V560" stroke="#AFC0CB"/>
+    <path d="M787 70V560" stroke="#AFC0CB"/>
+    <path d="M823 70V560" stroke="#AFC0CB"/>
+    <path d="M859 70V560" stroke="#AFC0CB"/>
+    <path d="M895 70V560" stroke="#AFC0CB"/>
+    <path d="M931 70V560" stroke="#AFC0CB"/>
+    <path d="M967 70V560" stroke="#AFC0CB"/>
+    <path d="M1003 70V560" stroke="#AFC0CB"/>
+    <path d="M1039 70V560" stroke="#AFC0CB"/>
+    <path d="M1075 70V560" stroke="#AFC0CB"/>
+  </g>
+  <rect x="109" y="120" width="74" height="74" rx="8" fill="#0F1D2E"/>
+  <text x="127" y="166" fill="#EAF6F5" font-size="29" font-family="Space Grotesk, Public Sans, sans-serif" font-weight="700">LA</text>
+  <text x="109" y="250" fill="#5F6F7F" font-size="28" font-family="Public Sans, sans-serif" letter-spacing="0.12em">LANGIT AERO</text>
+  <text x="109" y="326" fill="#0F1D2E" font-size="56" font-family="Space Grotesk, Public Sans, sans-serif" font-weight="700">
+    Aircraft Spare Parts
+  </text>
+  <text x="109" y="391" fill="#0F1D2E" font-size="56" font-family="Space Grotesk, Public Sans, sans-serif" font-weight="700">
+    Broker For APAC
+  </text>
+  <text x="109" y="448" fill="#5F6F7F" font-size="30" font-family="Public Sans, sans-serif">
+    AOG-ready sourcing with traceability-first checks.
+  </text>
+  <rect x="109" y="486" width="314" height="52" rx="26" fill="#0F7A74"/>
+  <text x="153" y="520" fill="#F6FFFE" font-size="24" font-family="Public Sans, sans-serif" font-weight="600">Submit Structured RFQ</text>
+</svg>

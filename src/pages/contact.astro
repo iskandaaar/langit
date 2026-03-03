@@ -1,0 +1,54 @@
+---
+import CTASection from '../components/CTASection.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { siteConfig } from '../config/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Contact" description="Contact Langit Aero and route requests to RFQ or AOG desk support.">
+  <section class="mt-12">
+    <SectionHeader
+      kicker="Contact"
+      headingTag="h1"
+      title="Send RFQ or engage the AOG desk"
+      description="For best response quality, send a structured RFQ first. Use AOG channel for grounded-aircraft urgency."
+    />
+
+    <article class="surface-panel p-6 sm:p-8">
+      <h3 class="font-display text-xl text-ink">Shared Contact Channel</h3>
+      <p class="mt-3 text-sm leading-relaxed text-muted">
+        Commercial and AOG requests are handled through one intake address.
+      </p>
+      <p class="mt-5 text-sm text-muted">
+        Email:
+        <a class="font-medium text-ink hover:text-accent" href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
+      </p>
+    </article>
+
+    <div class="mt-5 grid gap-5 md:grid-cols-2">
+      <article class="surface-panel p-6">
+        <h3 class="font-display text-xl text-ink">Commercial Desk</h3>
+        <p class="mt-3 text-sm leading-relaxed text-muted">
+          Use for regular sourcing, repeat demand, pricing follow-up, and planned procurement.
+        </p>
+      </article>
+
+      <article id="aog-desk" class="surface-panel p-6">
+        <h3 class="font-display text-xl text-ink">AOG Desk</h3>
+        <p class="mt-3 text-sm leading-relaxed text-muted">
+          For urgent grounded-aircraft requests, include part numbers, location, and needed-by time.
+        </p>
+        <p class="mt-2 text-sm text-muted">Tag your request subject with "AOG" for priority routing.</p>
+      </article>
+    </div>
+  </section>
+
+  <CTASection
+    title="Ready to submit a complete request?"
+    description="Use the RFQ page to keep documentation, urgency, and destination context in one workflow."
+    primaryLabel="Submit RFQ"
+    primaryHref="/rfq"
+    secondaryLabel="How we work"
+    secondaryHref="/process"
+  />
+</BaseLayout>

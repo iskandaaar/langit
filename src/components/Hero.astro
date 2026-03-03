@@ -1,0 +1,82 @@
+---
+interface Props {
+  kicker?: string;
+  title: string;
+  subhead: string;
+  primaryLabel: string;
+  primaryHref: string;
+  secondaryLabel: string;
+  secondaryHref: string;
+  badges: string[];
+  trustMetrics: Array<{
+    value: string;
+    label: string;
+  }>;
+  trustPoints: Array<{
+    title: string;
+    detail: string;
+  }>;
+}
+
+const {
+  kicker = 'Langit Aero',
+  title,
+  subhead,
+  primaryLabel,
+  primaryHref,
+  secondaryLabel,
+  secondaryHref,
+  badges,
+  trustMetrics,
+  trustPoints,
+} = Astro.props;
+---
+
+<section class="hero-shell mt-8 overflow-hidden px-6 py-10 sm:px-10 lg:mt-12 lg:px-14 lg:py-14">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="relative grid gap-8 lg:grid-cols-[1.35fr_1fr] lg:items-start">
+    <div class="reveal-up">
+      <p class="kicker">{kicker}</p>
+      <h1 class="mt-5 max-w-3xl font-display text-4xl leading-tight text-ink sm:text-5xl">{title}</h1>
+      <p class="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">{subhead}</p>
+
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <a href={primaryHref} class="btn btn-primary">{primaryLabel}</a>
+        <a href={secondaryHref} class="btn btn-secondary">{secondaryLabel}</a>
+      </div>
+
+      <ul class="mt-7 flex flex-wrap gap-2.5">
+        {
+          badges.map((badge) => (
+            <li class="badge-chip text-sm font-medium text-ink/90">{badge}</li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <aside class="surface-panel reveal-up delay-1 relative p-6 sm:p-7">
+      <p class="kicker">Trust Snapshot</p>
+      <div class="mt-5 grid grid-cols-2 gap-3">
+        {
+          trustMetrics.map((item) => (
+            <article class="trust-metric rounded-xl border border-line/80 bg-surface p-3.5">
+              <p class="font-display text-lg leading-tight text-ink">{item.value}</p>
+              <p class="mt-1.5 text-xs leading-snug text-muted">{item.label}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <ul class="mt-5 space-y-3">
+        {
+          trustPoints.map((point) => (
+            <li class="rounded-lg border border-line/80 bg-canvas/70 px-3.5 py-3">
+              <p class="text-sm font-semibold text-ink">{point.title}</p>
+              <p class="mt-1 text-sm leading-relaxed text-muted">{point.detail}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </aside>
+  </div>
+</section>

@@ -1,0 +1,17 @@
+---
+interface Props {
+  title: string;
+  summary: string;
+  points: string[];
+}
+
+const { title, summary, points } = Astro.props;
+---
+
+<article class="surface-panel h-full p-6">
+  <h3 class="font-display text-xl text-ink">{title}</h3>
+  <p class="mt-2 text-sm leading-relaxed text-muted">{summary}</p>
+  <ul class="marked-list mt-4 list-disc text-sm text-ink/90">
+    {points.map((point) => <li>{point}</li>)}
+  </ul>
+</article>

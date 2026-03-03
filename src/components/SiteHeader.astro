@@ -1,0 +1,49 @@
+---
+import { siteConfig } from '../config/site';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+const isActive = (href: string) =>
+  href === '/' ? currentPath === '/' : currentPath === href || currentPath.startsWith(`${href}/`);
+---
+
+<header class="sticky top-0 z-40 border-b border-line/80 bg-canvas/95 backdrop-blur">
+  <div class="mx-auto flex w-full max-w-6xl flex-wrap items-center gap-3 px-4 py-4 sm:px-6 lg:px-8">
+    <a href="/" class="mr-auto flex items-center gap-3 text-sm font-semibold tracking-[0.18em] text-ink uppercase" aria-label={`${siteConfig.name} home`}>
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-sm border border-line bg-surface text-xs">LA</span>
+      {siteConfig.name}
+    </a>
+
+    <nav aria-label="Primary" class="order-3 basis-full sm:order-2 sm:basis-auto">
+      <ul class="flex flex-wrap items-center gap-1.5">
+        {
+          siteConfig.navigation.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+                class:list={[
+                  'rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                  isActive(item.href)
+                    ? 'bg-accentSoft text-accent'
+                    : 'text-muted hover:text-ink',
+                ]}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="order-2 flex items-center gap-2 sm:order-3">
+      <a href={siteConfig.cta.secondaryHref} class="btn btn-secondary">{siteConfig.cta.secondaryLabel}</a>
+      <a href={siteConfig.cta.primaryHref} class="btn btn-primary">{siteConfig.cta.primaryLabel}</a>
+    </div>
+  </div>
+</header>

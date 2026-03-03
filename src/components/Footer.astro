@@ -1,0 +1,21 @@
+---
+import { siteConfig } from '../config/site';
+---
+
+<footer class="border-t border-line/80 bg-surface/85">
+  <div class="mx-auto flex w-full max-w-6xl flex-col gap-5 px-4 py-10 text-sm sm:px-6 lg:px-8 lg:flex-row lg:items-end lg:justify-between">
+    <div>
+      <p class="font-display text-lg text-ink">{siteConfig.name}</p>
+      <p class="mt-1 max-w-lg text-muted">{siteConfig.tagline}</p>
+      <p class="mt-3 text-muted">{siteConfig.contact.location}</p>
+      <p class="mt-1 text-muted">{siteConfig.contact.legalEntity}</p>
+    </div>
+    <div class="text-muted">
+      <p>
+        Email:
+        <a class="text-ink hover:text-accent" href={`mailto:${siteConfig.contact.email}`}>{siteConfig.contact.email}</a>
+      </p>
+      <p class="mt-4 text-xs">All offers subject to availability, verification, and prior sale.</p>
+    </div>
+  </div>
+</footer>

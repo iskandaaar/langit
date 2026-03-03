@@ -1,0 +1,244 @@
+---
+import CTASection from '../components/CTASection.astro';
+import CapabilityCard from '../components/CapabilityCard.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import Hero from '../components/Hero.astro';
+import ProcessStep from '../components/ProcessStep.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { siteConfig, toAbsoluteSiteUrl } from '../config/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const proofStats = [
+  {
+    value: '5',
+    label: 'Disciplined steps from RFQ to shipment',
+  },
+  {
+    value: '3',
+    label: 'Cert pathways declared in quote: 8130-3 / EASA Form 1 / CoC',
+  },
+  {
+    value: '1',
+    label: 'Single accountable desk owner per request',
+  },
+  {
+    value: '2',
+    label: 'Sourcing lanes managed in parallel when urgency is high',
+  },
+];
+
+const rfqChecklist = [
+  'Part number and quantity (with alternates if acceptable)',
+  'Needed-by date/time and delivery airport or city',
+  'Cert requirement: 8130-3, EASA Form 1, or CoC',
+  'Condition expectation: new, serviceable, overhauled, etc.',
+  'Buying entity name for verification and quote release',
+];
+
+const homepageFaqItems = [
+  {
+    question: 'What requests get the fastest response?',
+    answer:
+      'Complete RFQs that include part numbers, quantity, cert requirement, needed-by time, and destination are prioritized because quoting can start immediately.',
+  },
+  {
+    question: 'Do you support AOG cases?',
+    answer:
+      'Yes. Mark the request subject with "AOG" and include location plus needed-by time so the desk can route the case into priority handling.',
+  },
+  {
+    question: 'How do you reduce sourcing risk?',
+    answer:
+      'Before quote, we verify stock proof, cert type, trace statement, lead-time assumptions, and payee/entity alignment.',
+  },
+  {
+    question: 'Can you source both routine and high-value items?',
+    answer:
+      'Yes. We cover consumables, rotables, and engine inquiries with stricter gate controls as transaction complexity rises.',
+  },
+  {
+    question: 'What if primary stock slips?',
+    answer:
+      'We escalate to alternate sourcing lanes and communicate options with updated timing and assumptions, rather than waiting silently.',
+  },
+];
+
+const homepageJsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Aircraft Spare Parts Brokerage',
+    serviceType: 'Aircraft spare parts sourcing and brokerage',
+    areaServed: 'APAC',
+    provider: {
+      '@type': 'Organization',
+      name: siteConfig.name,
+      url: siteConfig.seo.siteUrl,
+    },
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceUrl: toAbsoluteSiteUrl('/rfq') ?? '/rfq',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: homepageFaqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="Aircraft Spare Parts Broker APAC | Langit Aero"
+  description="Langit Aero is an aircraft spare parts broker for APAC operators, MROs, and lessors. AOG-ready sourcing for consumables, rotables, and engine inquiries with traceability-first checks."
+  jsonLd={homepageJsonLd}
+>
+  <Hero
+    kicker="Aircraft Spares Brokerage | APAC"
+    title="Aircraft spare parts sourcing built for urgency and traceability."
+    subhead="Langit Aero supports operators, MROs, and lessors with disciplined brokerage across consumables, rotables, and engine inquiries. One desk. Clear checkpoints. No speculative stock language."
+    primaryLabel="Submit RFQ"
+    primaryHref="/rfq"
+    secondaryLabel="How we work"
+    secondaryHref="/process"
+    badges={['AOG-ready desk routing', 'Traceability-first checks', 'Global supplier reach']}
+    trustMetrics={[
+      { value: '< 1 hr', label: 'Target first response for AOG-tagged intake' },
+      { value: 'APAC', label: 'Primary service region with global supply lanes' },
+      { value: '3', label: 'Cert expectation formats handled in quote flow' },
+      { value: '5-step', label: 'RFQ -> verification -> quote -> order -> ship' },
+    ]}
+    trustPoints={[
+      {
+        title: 'Entity and payee verification',
+        detail: 'Commercial release is gated by legal-entity and payment controls.',
+      },
+      {
+        title: 'Assumptions made explicit',
+        detail: 'Quote validity, cert expectations, and lead-time caveats are written clearly.',
+      },
+    ]}
+  />
+
+  <section class="mt-7" aria-label="Proof points">
+    <div class="proof-strip reveal-up delay-1">
+      {
+        proofStats.map((item) => (
+          <article class="proof-card">
+            <p class="font-display text-2xl text-ink sm:text-3xl">{item.value}</p>
+            <p class="mt-2 text-sm leading-relaxed text-muted">{item.label}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="mt-16">
+    <SectionHeader
+      kicker="Capabilities"
+      title="Coverage built for both repeat demand and urgent events"
+      description="The sourcing model stays consistent, while controls tighten as part value and transaction complexity increase."
+    />
+    <div class="grid gap-5 md:grid-cols-2">
+      <CapabilityCard
+        title="Consumables & Expendables"
+        summary="Fast-moving line items where planned replenishment and short-notice demand both matter."
+        points={[
+          'Routine replenishment and shortage recovery',
+          'Batch sourcing with cert visibility',
+          'AOG-sensitive dispatch priorities',
+        ]}
+      />
+      <CapabilityCard
+        title="Rotables"
+        summary="Higher-value components managed with strict condition language and cert discipline."
+        points={[
+          'Stock proof and cert type checks before quote',
+          'Serialized component handling',
+          'Clear condition and lead-time declaration',
+        ]}
+      />
+      <CapabilityCard
+        title="Engines"
+        summary="Engine programs handled through controlled commercial and technical gates."
+        points={[
+          'Structured intake for mission profile and budget',
+          'Document trail and identity checks',
+          'No speculative "confirmed stock" language',
+        ]}
+      />
+      <CapabilityCard
+        title="AOG Desk"
+        summary="Rapid response workflow with one owner, clock-driven updates, and alternate lanes."
+        points={[
+          'Priority queue for grounded-aircraft demand',
+          'Clock-driven communication points',
+          'Escalation to alternates when primary path slips',
+        ]}
+      />
+    </div>
+  </section>
+
+  <section class="mt-16">
+    <SectionHeader
+      kicker="Process Snapshot"
+      title="A process built to be fast and audit-friendly"
+      description="Speed is preserved through standardization, while risk is controlled through explicit verification gates."
+    />
+    <div class="grid gap-5 lg:grid-cols-5">
+      <ProcessStep stepNumber={1} title="RFQ intake" detail="Capture part data, urgency, destination, and cert requirement in one pass." />
+      <ProcessStep stepNumber={2} title="Verification" detail="Validate stock proof, trace statement, cert type, lead time, and entity match." />
+      <ProcessStep stepNumber={3} title="Quote" detail="Issue a clear commercial offer with assumptions and expiry window." />
+      <ProcessStep stepNumber={4} title="Order" detail="Confirm terms, payment controls, and release triggers." />
+      <ProcessStep stepNumber={5} title="Ship" detail="Coordinate dispatch with document pack and milestone updates." />
+    </div>
+  </section>
+
+  <section class="mt-16">
+    <SectionHeader
+      kicker="RFQ Quality"
+      title="How to submit a strong RFQ"
+      description="Complete intake data reduces back-and-forth, improves quote accuracy, and protects lead-time expectations."
+    />
+    <div class="surface-panel grid gap-8 p-6 sm:p-8 lg:grid-cols-[1.3fr_1fr]">
+      <div>
+        <h3 class="font-display text-xl text-ink">Required information</h3>
+        <ul class="marked-list mt-4 list-disc text-sm leading-relaxed text-ink/90 sm:text-base">
+          {rfqChecklist.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      <aside class="rounded-xl border border-line/80 bg-canvas/70 p-5">
+        <h3 class="font-display text-xl text-ink">Why this helps</h3>
+        <p class="mt-3 text-sm leading-relaxed text-muted">
+          Better first-pass data means the desk can verify and quote sooner, with less rework and fewer assumption-driven delays.
+        </p>
+        <a href="/rfq" class="btn btn-primary mt-5">Start Structured RFQ</a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="mt-16">
+    <SectionHeader
+      kicker="FAQ"
+      title="Common questions before first RFQ"
+      description="If your case is unusual, include context in the RFQ notes and the desk will structure the path."
+    />
+    <FAQAccordion items={homepageFaqItems} />
+  </section>
+
+  <CTASection
+    title="Need pricing now or moving an active AOG case?"
+    description="Submit one complete RFQ and the desk will move from verification to shipment planning with clear, timestamped communication."
+    primaryLabel={siteConfig.cta.primaryLabel}
+    primaryHref={siteConfig.cta.primaryHref}
+    secondaryLabel={siteConfig.cta.secondaryLabel}
+    secondaryHref={siteConfig.cta.secondaryHref}
+  />
+</BaseLayout>

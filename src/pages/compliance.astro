@@ -1,0 +1,64 @@
+---
+import CTASection from '../components/CTASection.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { siteConfig } from '../config/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Compliance"
+  description="Langit Aero compliance position: traceability-first sourcing, cert clarity, and anti-fraud controls."
+>
+  <section class="mt-12">
+    <SectionHeader
+      kicker="Compliance"
+      headingTag="h1"
+      title="Traceability-first sourcing posture"
+      description="We run sourcing with documented evidence and explicit declarations before commercial commitment."
+    />
+
+    <div class="grid gap-5 lg:grid-cols-3">
+      <article class="surface-panel p-6">
+        <h3 class="font-display text-xl text-ink">Traceability</h3>
+        <p class="mt-3 text-sm leading-relaxed text-muted">
+          Every quote path starts from trace visibility. We prioritize offers that can show clear documentation lineage and
+          we flag limitations early.
+        </p>
+      </article>
+      <article class="surface-panel p-6">
+        <h3 class="font-display text-xl text-ink">Certificate Language</h3>
+        <p class="mt-3 text-sm leading-relaxed text-muted">
+          Cert expectations are stated directly: 8130-3, EASA Form 1, or CoC (as available). If a cert is unavailable, it
+          is clearly disclosed before order.
+        </p>
+      </article>
+      <article class="surface-panel p-6">
+        <h3 class="font-display text-xl text-ink">Anti-Fraud Policy</h3>
+        <p class="mt-3 text-sm leading-relaxed text-muted">
+          Unverified stock is not presented as confirmed. Verification controls and entity matching are mandatory checkpoints
+          before release.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section class="mt-14">
+    <SectionHeader kicker="Disclaimers" title="Commercial and sourcing disclaimers" />
+    <div class="surface-panel p-6 sm:p-8">
+      <ul class="marked-list list-disc text-sm leading-relaxed text-ink/90 sm:text-base">
+        <li>All offers are subject to availability, verification, and prior sale.</li>
+        <li>Lead times and logistics windows remain subject to upstream partner confirmation.</li>
+        <li>Price, cert assumptions, and payment terms are valid only within the quote window.</li>
+      </ul>
+    </div>
+  </section>
+
+  <CTASection
+    title="Need compliance-aligned sourcing support?"
+    description="Submit the RFQ with cert requirement and destination details so we can quote with correct controls from the start."
+    primaryLabel={siteConfig.cta.primaryLabel}
+    primaryHref={siteConfig.cta.primaryHref}
+    secondaryLabel={siteConfig.cta.secondaryLabel}
+    secondaryHref={siteConfig.cta.secondaryHref}
+  />
+</BaseLayout>
