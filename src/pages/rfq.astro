@@ -1,12 +1,12 @@
 ---
-import SectionHeader from '../components/SectionHeader.astro';
-import { hasConfiguredTallyForm, tallyEmbedUrl } from '../config/site';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeader from "../components/SectionHeader.astro";
+import { hasConfiguredTallyForm, tallyEmbedUrl } from "../config/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
 <BaseLayout
   title="RFQ"
-  description="Submit a Langit Aero RFQ through the embedded Tally form for structured part sourcing intake."
+  description="Submit an Airworthy Supply RFQ through the embedded Tally form for structured part sourcing intake."
 >
   <section class="mt-12">
     <SectionHeader
@@ -22,36 +22,43 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <iframe
             id="tally-embed"
             src={tallyEmbedUrl}
-            title="Langit Aero RFQ form"
+            title="Airworthy Supply RFQ form"
             class="min-h-[900px] w-full rounded-[0.85rem] border-0 bg-white"
             loading="lazy"
-          ></iframe>
+          />
         </div>
       ) : (
         <div class="surface-panel p-6 sm:p-8">
           <p class="text-sm leading-relaxed text-muted sm:text-base">
-            Tally form is not configured yet. Set <code>PUBLIC_TALLY_FORM_ID</code> in your environment or update
-            <code>src/config/site.ts</code> with your form ID to enable this page.
+            Tally form is not configured yet. Set{" "}
+            <code>PUBLIC_TALLY_FORM_ID</code> in your environment or update
+            <code>src/config/site.ts</code> with your form ID to enable this
+            page.
           </p>
         </div>
       )
     }
 
-    <p class="mt-4 text-sm text-muted">AOG? Put "AOG" in subject and needed-by time.</p>
+    <p class="mt-4 text-sm text-muted">
+      AOG? Put "AOG" in subject and needed-by time.
+    </p>
   </section>
 </BaseLayout>
 
 <script is:inline>
-  const iframe = document.getElementById('tally-embed');
-  const allowedOrigins = new Set(['https://tally.so', 'https://www.tally.so']);
+  const iframe = document.getElementById("tally-embed");
+  const allowedOrigins = new Set(["https://tally.so", "https://www.tally.so"]);
 
   if (iframe instanceof HTMLIFrameElement) {
-    window.addEventListener('message', (event) => {
+    window.addEventListener("message", (event) => {
       if (!allowedOrigins.has(event.origin)) return;
       if (event.source !== iframe.contentWindow) return;
 
       const data = event.data;
-      if (data?.type === 'tally-form-height' && typeof data.height === 'number') {
+      if (
+        data?.type === "tally-form-height" &&
+        typeof data.height === "number"
+      ) {
         iframe.style.height = `${Math.max(data.height + 24, 900)}px`;
       }
     });

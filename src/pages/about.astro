@@ -1,0 +1,65 @@
+---
+import CTASection from "../components/CTASection.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+    title="About Us"
+    description="Learn about Airworthy Supply, an APAC-focused aircraft spare parts broker built on traceability and speed."
+>
+    <section class="mt-12">
+        <SectionHeader
+            kicker="About Us"
+            headingTag="h1"
+            title="Built for operators who need certainty"
+            description="Airworthy Supply is a specialized brokerage desk serving the APAC region. We bypass the friction of traditional sourcing by leading with trace evidence and strict verification gates."
+        />
+
+        <div class="mt-10 grid gap-8 lg:grid-cols-2">
+            <div class="surface-panel p-6 sm:p-8">
+                <h3 class="font-display text-xl text-ink">Our Mission</h3>
+                <p class="mt-4 text-sm leading-relaxed text-muted sm:text-base">
+                    To provide a unified, highly accountable sourcing desk for
+                    aviation spares. Whether it's a routine consumable
+                    replenishment or a critical AOG timeframe, we believe in
+                    radical transparency regarding stock location, cert
+                    pathways, and lead times.
+                </p>
+            </div>
+            <div class="surface-panel p-6 sm:p-8">
+                <h3 class="font-display text-xl text-ink">
+                    The Langit Aero Standard
+                </h3>
+                <p class="mt-4 text-sm leading-relaxed text-muted sm:text-base">
+                    We don't use speculative stock language. Every quote we
+                    issue is backed by explicit assumptions. Our anti-fraud and
+                    verification mechanisms ensure that you know exactly what
+                    you're buying before the PO is cut.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="mt-16">
+        <SectionHeader
+            kicker="Leadership"
+            title="The team behind the desk"
+            description="Decades of combined experience in aviation procurement, MRO supply chain, and logistics."
+        />
+        <div class="surface-panel p-6 text-center sm:p-12">
+            <p class="text-sm text-muted">
+                [ Founder / Team profiles to be added ]
+            </p>
+        </div>
+    </section>
+
+    <CTASection
+        title="Work with a desk that values your time"
+        description="Send us a trial RFQ and experience the difference in our sourcing and communication discipline."
+        primaryLabel="Submit RFQ"
+        primaryHref="/rfq"
+        secondaryLabel="Contact Us"
+        secondaryHref="/contact"
+    />
+</BaseLayout>

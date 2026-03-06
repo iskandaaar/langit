@@ -19,7 +19,7 @@ interface Props {
 }
 
 const {
-  kicker = 'Langit Aero',
+  kicker = "Airworthy Supply",
   title,
   subhead,
   primaryLabel,
@@ -32,13 +32,35 @@ const {
 } = Astro.props;
 ---
 
-<section class="hero-shell mt-8 overflow-hidden px-6 py-10 sm:px-10 lg:mt-12 lg:px-14 lg:py-14">
-  <div class="hero-glow" aria-hidden="true"></div>
-  <div class="relative grid gap-8 lg:grid-cols-[1.35fr_1fr] lg:items-start">
+<section
+  class="hero-shell relative mt-8 overflow-hidden px-6 py-10 sm:px-10 lg:mt-12 lg:px-14 lg:py-14"
+>
+  <div class="absolute inset-0 z-0">
+    <img
+      src="/hero-bg.png"
+      alt=""
+      class="absolute inset-0 h-full w-full object-cover opacity-[0.25] mix-blend-multiply"
+      aria-hidden="true"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-canvas/95 via-canvas/80 to-transparent"
+    >
+    </div>
+  </div>
+  <div class="hero-glow z-0" aria-hidden="true"></div>
+  <div
+    class="relative z-10 grid gap-8 lg:grid-cols-[1.35fr_1fr] lg:items-start"
+  >
     <div class="reveal-up">
       <p class="kicker">{kicker}</p>
-      <h1 class="mt-5 max-w-3xl font-display text-4xl leading-tight text-ink sm:text-5xl">{title}</h1>
-      <p class="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">{subhead}</p>
+      <h1
+        class="mt-5 max-w-3xl font-display text-4xl leading-tight text-ink sm:text-5xl"
+      >
+        {title}
+      </h1>
+      <p class="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+        {subhead}
+      </p>
 
       <div class="mt-8 flex flex-wrap items-center gap-3">
         <a href={primaryHref} class="btn btn-primary">{primaryLabel}</a>
@@ -60,7 +82,9 @@ const {
         {
           trustMetrics.map((item) => (
             <article class="trust-metric rounded-xl border border-line/80 bg-surface p-3.5">
-              <p class="font-display text-lg leading-tight text-ink">{item.value}</p>
+              <p class="font-display text-lg leading-tight text-ink">
+                {item.value}
+              </p>
               <p class="mt-1.5 text-xs leading-snug text-muted">{item.label}</p>
             </article>
           ))
@@ -72,7 +96,9 @@ const {
           trustPoints.map((point) => (
             <li class="rounded-lg border border-line/80 bg-canvas/70 px-3.5 py-3">
               <p class="text-sm font-semibold text-ink">{point.title}</p>
-              <p class="mt-1 text-sm leading-relaxed text-muted">{point.detail}</p>
+              <p class="mt-1 text-sm leading-relaxed text-muted">
+                {point.detail}
+              </p>
             </li>
           ))
         }

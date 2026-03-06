@@ -1,33 +1,33 @@
 ---
-import CTASection from '../components/CTASection.astro';
-import FAQAccordion from '../components/FAQAccordion.astro';
-import ProcessStep from '../components/ProcessStep.astro';
-import SectionHeader from '../components/SectionHeader.astro';
-import { siteConfig } from '../config/site';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import CTASection from "../components/CTASection.astro";
+import FAQAccordion from "../components/FAQAccordion.astro";
+import ProcessStep from "../components/ProcessStep.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+import { siteConfig } from "../config/site";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const faqItems = [
   {
-    question: 'What does verification include before quote?',
+    question: "What does verification include before quote?",
     answer:
-      'Verification includes stock proof, cert type check, trace statement, lead-time confirmation, and bank/company identity matching.',
+      "Verification includes stock proof, cert type check, trace statement, lead-time confirmation, and bank/company identity matching.",
   },
   {
-    question: 'Can you process AOG requests outside local business hours?',
+    question: "Can you process AOG requests outside local business hours?",
     answer:
       'Yes. Mark the request subject with "AOG" and include needed-by time and location. The desk shifts into rapid response workflow.',
   },
   {
-    question: 'Do you present unverified stock as confirmed inventory?',
+    question: "Do you present unverified stock as confirmed inventory?",
     answer:
-      'No. Unverified inventory is never represented as confirmed. We flag assumptions clearly before any commercial commitment.',
+      "No. Unverified inventory is never represented as confirmed. We flag assumptions clearly before any commercial commitment.",
   },
 ];
 ---
 
 <BaseLayout
   title="Process"
-  description="Langit Aero process: RFQ intake, verification, quote, order, and shipment with transparent risk controls."
+  description="Airworthy Supply process: RFQ intake, verification, quote, order, and shipment with transparent risk controls."
 >
   <section class="mt-12">
     <SectionHeader
@@ -73,12 +73,29 @@ const faqItems = [
       description="This gate exists to reduce fraud risk, avoid false confirmations, and keep buyers protected."
     />
     <div class="surface-panel p-6 sm:p-8">
-      <ul class="marked-list list-disc text-sm leading-relaxed text-ink/90 sm:text-base">
-        <li><strong>Stock proof:</strong> timestamped evidence of availability before commercial commitment.</li>
-        <li><strong>Cert type:</strong> confirmation of 8130-3 / EASA Form 1 / CoC availability as applicable.</li>
-        <li><strong>Trace statement:</strong> documented source and chain visibility at quote stage.</li>
-        <li><strong>Lead time:</strong> declared with explicit caveats where upstream risk exists.</li>
-        <li><strong>Bank/company match:</strong> payee and legal entity checks completed before order release.</li>
+      <ul
+        class="marked-list list-disc text-sm leading-relaxed text-ink/90 sm:text-base"
+      >
+        <li>
+          <strong>Stock proof:</strong> timestamped evidence of availability before
+          commercial commitment.
+        </li>
+        <li>
+          <strong>Cert type:</strong> confirmation of 8130-3 / EASA Form 1 / CoC
+          availability as applicable.
+        </li>
+        <li>
+          <strong>Trace statement:</strong> documented source and chain visibility
+          at quote stage.
+        </li>
+        <li>
+          <strong>Lead time:</strong> declared with explicit caveats where upstream
+          risk exists.
+        </li>
+        <li>
+          <strong>Bank/company match:</strong> payee and legal entity checks completed
+          before order release.
+        </li>
       </ul>
     </div>
   </section>

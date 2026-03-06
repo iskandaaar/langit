@@ -3,7 +3,7 @@ import { toAbsoluteSiteUrl } from '../config/site';
 
 export const prerender = true;
 
-const staticPaths = ['/', '/capabilities', '/process', '/compliance', '/contact', '/rfq', '/privacy'];
+const staticPaths = ['/', '/about', '/capabilities', '/process', '/compliance', '/contact', '/rfq', '/privacy'];
 
 const getBaseSiteUrl = (site?: URL): string | null => {
   if (site) return site.toString().replace(/\/+$/, '');

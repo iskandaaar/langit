@@ -3,10 +3,10 @@ const configuredSiteUrl = (import.meta.env.PUBLIC_SITE_URL ?? '').trim();
 const configuredOgImage = (import.meta.env.PUBLIC_OG_IMAGE ?? '').trim();
 
 export const siteConfig = {
-  name: 'Langit Aero',
+  name: 'Airworthy Supply',
   tagline: 'Consumables to engines, sourced right.',
   description:
-    'Langit Aero brokers aircraft spare parts across APAC with global supplier reach and a strict traceability-first workflow.',
+    'Airworthy Supply brokers aircraft spare parts across APAC with global supplier reach and a strict traceability-first workflow.',
   cta: {
     primaryLabel: 'Submit RFQ',
     primaryHref: '/rfq',
@@ -14,13 +14,13 @@ export const siteConfig = {
     secondaryHref: '/contact#aog-desk',
   },
   contact: {
-    email: 'sales@langitaero.com',
-    whatsapp: '+60 00-000 0000',
+    email: 'sales@airworthysupply.com',
     location: 'Kuala Lumpur, Malaysia',
     legalEntity: 'Neatly Nea Sdn Bhd (202501059817)',
   },
   navigation: [
     { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
     { href: '/capabilities', label: 'Capabilities' },
     { href: '/process', label: 'Process' },
     { href: '/compliance', label: 'Compliance' },
@@ -33,8 +33,8 @@ export const siteConfig = {
     embedMode: 'full-page' as const,
   },
   seo: {
-    siteUrl: (configuredSiteUrl || 'https://langitaero.com').replace(/\/+$/, ''),
-    defaultOgImage: configuredOgImage || '/og-default.svg',
+    siteUrl: (configuredSiteUrl || 'https://airworthysupply.com').replace(/\/+$/, ''),
+    defaultOgImage: configuredOgImage || '/og-image.png',
     twitterHandle: '',
   },
 };
