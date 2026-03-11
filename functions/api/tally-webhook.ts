@@ -202,7 +202,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ env, request }) => {
   const summaryCompany = company || contact || 'Unknown Sender';
   const summaryNeededBy = neededBy || 'No needed-by time';
   const subjectPrefix = isAOG ? '[AOG] ' : '';
-  const subject = `[Langit Aero RFQ] ${subjectPrefix}${summaryCompany} ${summaryNeededBy}`.trim();
+  const subject = `[Angkasa Supply RFQ] ${subjectPrefix}${summaryCompany} ${summaryNeededBy}`.trim();
 
   const submissionId = normalize((payload.data as UnknownRecord | undefined)?.submissionId) ||
     normalize(payload.submissionId);
@@ -259,7 +259,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ env, request }) => {
 
   const mailPayload = {
     personalizations: [{ to: [{ email: env.RFQ_NOTIFICATION_TO }] }],
-    from: { email: env.MAILCHANNELS_FROM_EMAIL, name: 'Langit Aero Notifications' },
+    from: { email: env.MAILCHANNELS_FROM_EMAIL, name: 'Angkasa Supply Notifications' },
     subject,
     content: [
       { type: 'text/plain', value: textBody },

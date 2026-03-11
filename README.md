@@ -1,6 +1,6 @@
-# Langit Aero Website
+# Angkasa Supply Website
 
-SEO-first Astro + Tailwind website for Langit Aero, targeted for Cloudflare Pages with Tally-powered RFQ intake, Cloudflare Pages Functions webhook notifications, and a Sanity-ready content layer with local seed fallback.
+SEO-first Astro + Tailwind website for Angkasa Supply, targeted for Cloudflare Pages with Tally-powered RFQ intake, Cloudflare Pages Functions webhook notifications, and a Sanity-ready content layer with local seed fallback.
 
 ## Stack
 
@@ -68,7 +68,7 @@ npm install
 cp .env.example .env
 ```
 
-3. Set `PUBLIC_TALLY_FORM_ID` in `.env` (or in `src/config/site.ts` fallback). `PUBLIC_SITE_URL` defaults to `https://langitaero.com` and can be overridden per environment.
+3. Set `PUBLIC_TALLY_FORM_ID` in `.env` (or in `src/config/site.ts` fallback). `PUBLIC_SITE_URL` defaults to `https://angkasasupply.com` and can be overridden per environment.
 4. To use Sanity as the live content source, also set `PUBLIC_SANITY_PROJECT_ID` and `PUBLIC_SANITY_DATASET`. If these are absent, the site will build from the seeded content in `src/lib/seed-content.ts`.
 
 5. Start dev server:
@@ -192,7 +192,7 @@ On valid submission, function extracts RFQ fields such as:
 Then sends notification email to `RFQ_NOTIFICATION_TO` with subject format:
 
 ```text
-[Langit Aero RFQ] <AOG?> <Company> <Needed-by>
+[Angkasa Supply RFQ] <AOG?> <Company> <Needed-by>
 ```
 
 Success response:

@@ -36,7 +36,7 @@ export const inventoryCategoryPages: InventoryCategoryPage[] = [
   {
     slug: 'engines',
     title: 'Aircraft Engines',
-    seoTitle: 'Aircraft Engines Inventory | Langit Aero',
+    seoTitle: 'Aircraft Engines Inventory | Angkasa Supply',
     seoDescription:
       'Curated aircraft engine availability for APAC buyers, with RFQ-led sourcing support, documentation review, and alternate-condition handling.',
     intro:
@@ -68,7 +68,7 @@ export const inventoryCategoryPages: InventoryCategoryPage[] = [
   {
     slug: 'rotables',
     title: 'Rotable Parts',
-    seoTitle: 'Rotable Parts Inventory | Langit Aero',
+    seoTitle: 'Rotable Parts Inventory | Angkasa Supply',
     seoDescription:
       'Rotable inventory pages for aircraft operators and MROs, with traceability-first RFQ support and condition-aware sourcing.',
     intro:
@@ -100,7 +100,7 @@ export const inventoryCategoryPages: InventoryCategoryPage[] = [
   {
     slug: 'consumables',
     title: 'Consumables And Expendables',
-    seoTitle: 'Aviation Consumables Inventory | Langit Aero',
+    seoTitle: 'Aviation Consumables Inventory | Angkasa Supply',
     seoDescription:
       'Aviation consumables and expendables sourcing support for APAC operators, with RFQ-led response and certification-aware brokerage.',
     intro:
@@ -137,8 +137,8 @@ export const servicePages: ServicePage[] = [
     slug: 'engine-sourcing',
     heroTitle: 'Aircraft engine sourcing with commercial discipline and documentation awareness.',
     heroIntro:
-      'Langit Aero supports operators, MROs, asset managers, and brokers with engine RFQs that need clear condition language, region visibility, and controlled supplier handling.',
-    seoTitle: 'Aircraft Engine Sourcing | Langit Aero',
+      'Angkasa Supply supports operators, MROs, asset managers, and brokers with engine RFQs that need clear condition language, region visibility, and controlled supplier handling.',
+    seoTitle: 'Aircraft Engine Sourcing | Angkasa Supply',
     seoDescription:
       'Aircraft engine sourcing and broker support for APAC buyers. RFQ-led handling for used serviceable, overhauled, and alternate-condition engine demand.',
     featuredCategory: 'engines',
@@ -178,7 +178,7 @@ export const servicePages: ServicePage[] = [
     heroTitle: 'AOG support built around fast intake, alternate lanes, and clear status handling.',
     heroIntro:
       'Urgent grounded-aircraft demand needs one accountable workflow, not fragmented updates. The AOG path keeps intake, sourcing, and communication in a single response loop.',
-    seoTitle: 'AOG Parts Support APAC | Langit Aero',
+    seoTitle: 'AOG Parts Support APAC | Angkasa Supply',
     seoDescription:
       'AOG parts support for APAC operators and MROs. Submit urgent RFQs with destination, needed-by time, and certification requirement for faster handling.',
     featuredCategory: 'rotables',
@@ -217,7 +217,7 @@ export const servicePages: ServicePage[] = [
     heroTitle: 'Rotable parts sourcing for buyers who need cert visibility and clear condition language.',
     heroIntro:
       'Rotable demand often sits between routine procurement and time-critical recovery. The site and RFQ flow are structured around traceability-first quoting and controlled stock representation.',
-    seoTitle: 'Aircraft Rotable Parts Supplier | Langit Aero',
+    seoTitle: 'Aircraft Rotable Parts Supplier | Angkasa Supply',
     seoDescription:
       'Aircraft rotable parts sourcing with RFQ-led handling, traceability checks, and condition-aware listings for APAC buyers.',
     featuredCategory: 'rotables',
@@ -256,7 +256,7 @@ export const servicePages: ServicePage[] = [
     heroTitle: 'Aviation consumables sourcing for repeat demand, shortage recovery, and RFQ-based urgency.',
     heroIntro:
       'Consumables and expendables move faster than high-value assets, but they still need disciplined handling when availability, certification, and timing affect the job.',
-    seoTitle: 'Aviation Consumables Supplier | Langit Aero',
+    seoTitle: 'Aviation Consumables Supplier | Angkasa Supply',
     seoDescription:
       'Aviation consumables supplier support for APAC operators and MROs, with part-number led listings and RFQ workflows for urgent or repeat demand.',
     featuredCategory: 'consumables',
@@ -295,7 +295,7 @@ export const servicePages: ServicePage[] = [
     heroTitle: 'Surplus inventory support that preserves confidentiality while surfacing real buyer intent.',
     heroIntro:
       'Surplus and excess inventory pages need enough public value to rank and convert, without turning sensitive supplier or owner positions into public disclosures.',
-    seoTitle: 'Surplus Aircraft Inventory Sales | Langit Aero',
+    seoTitle: 'Surplus Aircraft Inventory Sales | Angkasa Supply',
     seoDescription:
       'Surplus aircraft inventory sales support for engines, rotables, and consumables with controlled public listing strategy and RFQ-led conversion.',
     featuredCategory: 'engines',
@@ -336,10 +336,10 @@ export const articles: Article[] = [
     slug: 'what-does-usv-mean-in-aviation',
     excerpt:
       'A short guide to what USV means in aircraft parts and engine trading, why the condition matters, and what buyers should verify before moving forward.',
-    seoTitle: 'What Does USV Mean In Aviation? | Langit Aero',
+    seoTitle: 'What Does USV Mean In Aviation? | Angkasa Supply',
     seoDescription:
       'Understand what USV means in aviation procurement, how it affects RFQs, and what buyers should confirm before purchasing.',
-    author: 'Langit Aero',
+    author: 'Angkasa Supply',
     publishedAt: '2026-03-11',
     body: portableBody(
       [
@@ -359,10 +359,10 @@ export const articles: Article[] = [
     slug: 'used-serviceable-engine-buying-checklist',
     excerpt:
       'Key technical and commercial checks to run before buying a used serviceable engine through a brokered supply channel.',
-    seoTitle: 'Used Serviceable Engine Buying Checklist | Langit Aero',
+    seoTitle: 'Used Serviceable Engine Buying Checklist | Angkasa Supply',
     seoDescription:
       'A practical checklist for buyers evaluating used serviceable engines, including documentation, condition, timing, and commercial handling.',
-    author: 'Langit Aero',
+    author: 'Angkasa Supply',
     publishedAt: '2026-03-11',
     body: portableBody(
       [
@@ -381,10 +381,10 @@ export const articles: Article[] = [
     slug: 'rotables-vs-consumables-in-aviation-procurement',
     excerpt:
       'How rotable and consumable procurement differ in urgency, certification context, and RFQ handling for operators and MRO buyers.',
-    seoTitle: 'Rotables Vs Consumables In Aviation Procurement | Langit Aero',
+    seoTitle: 'Rotables Vs Consumables In Aviation Procurement | Angkasa Supply',
     seoDescription:
       'A practical comparison of rotable and consumable procurement workflows in aviation, including urgency, certification, and RFQ differences.',
-    author: 'Langit Aero',
+    author: 'Angkasa Supply',
     publishedAt: '2026-03-11',
     body: portableBody(
       [
@@ -437,7 +437,7 @@ export const inventoryItems: InventoryItem[] = [
     tso: 2120,
     cso: 1465,
     llpSummary: 'LLP status available during shortlist review.',
-    seoTitle: 'TPE331-10 Engine USV For Sale | Langit Aero',
+    seoTitle: 'TPE331-10 Engine USV For Sale | Angkasa Supply',
     seoDescription:
       'TPE331-10 used serviceable engine available for sale through a global supplier network with RFQ support and documentation review.',
     indexable: true,
@@ -481,7 +481,7 @@ export const inventoryItems: InventoryItem[] = [
     tso: 2980,
     cso: 1512,
     llpSummary: 'LLP pack reviewed during commercial shortlist.',
-    seoTitle: 'CFM56-7B26 Engine USV For Sale | Langit Aero',
+    seoTitle: 'CFM56-7B26 Engine USV For Sale | Angkasa Supply',
     seoDescription:
       'CFM56-7B26 used serviceable engine available for RFQ-led sourcing with documentation review and alternate option support.',
     indexable: true,
@@ -519,7 +519,7 @@ export const inventoryItems: InventoryItem[] = [
     availabilityStatus: 'rfq',
     supplierVisibility: 'disclosed_on_request',
     documentationSummary: 'Commercial and documentation posture depends on requested variant.',
-    seoTitle: 'PT6A Engine Available On RFQ | Langit Aero',
+    seoTitle: 'PT6A Engine Available On RFQ | Angkasa Supply',
     seoDescription:
       'PT6A engine sourcing support for RFQ-led buyers seeking current market options with controlled documentation review.',
     indexable: true,
@@ -557,7 +557,7 @@ export const inventoryItems: InventoryItem[] = [
     availabilityStatus: 'available',
     supplierVisibility: 'hidden',
     documentationSummary: 'Certification and trace reviewed at quote stage.',
-    seoTitle: '465020-3 Hydraulic Pump SV | Langit Aero',
+    seoTitle: '465020-3 Hydraulic Pump SV | Angkasa Supply',
     seoDescription:
       '465020-3 hydraulic pump in serviceable condition available for RFQ-led sourcing with certification review support.',
     indexable: true,
@@ -595,7 +595,7 @@ export const inventoryItems: InventoryItem[] = [
     availabilityStatus: 'rfq',
     supplierVisibility: 'hidden',
     documentationSummary: 'Release posture confirmed during inquiry.',
-    seoTitle: '822-1710-001 Avionics Unit OH | Langit Aero',
+    seoTitle: '822-1710-001 Avionics Unit OH | Angkasa Supply',
     seoDescription:
       '822-1710-001 avionics unit in overhauled condition available on RFQ with controlled certification review.',
     indexable: true,
@@ -633,7 +633,7 @@ export const inventoryItems: InventoryItem[] = [
     availabilityStatus: 'available',
     supplierVisibility: 'limited',
     documentationSummary: 'Trace and cert pack available after buyer qualification.',
-    seoTitle: '3-1709-1 Brake Control Valve SV | Langit Aero',
+    seoTitle: '3-1709-1 Brake Control Valve SV | Angkasa Supply',
     seoDescription:
       '3-1709-1 brake control valve in serviceable condition available through RFQ-led sourcing support.',
     indexable: true,
@@ -671,7 +671,7 @@ export const inventoryItems: InventoryItem[] = [
     availabilityStatus: 'available',
     supplierVisibility: 'hidden',
     documentationSummary: 'Certification posture depends on final batch release.',
-    seoTitle: 'BACB30DX Fastener Kit NS | Langit Aero',
+    seoTitle: 'BACB30DX Fastener Kit NS | Angkasa Supply',
     seoDescription:
       'BACB30DX fastener kit in new surplus condition available for RFQ-led sourcing and repeat procurement support.',
     indexable: true,
@@ -709,7 +709,7 @@ export const inventoryItems: InventoryItem[] = [
     availabilityStatus: 'available',
     supplierVisibility: 'hidden',
     documentationSummary: 'Release details confirmed against final batch and destination.',
-    seoTitle: 'PWC10 Filter Element New | Langit Aero',
+    seoTitle: 'PWC10 Filter Element New | Angkasa Supply',
     seoDescription:
       'PWC10 filter element in new condition available for RFQ-led consumable sourcing and repeat procurement support.',
     indexable: true,
@@ -747,7 +747,7 @@ export const inventoryItems: InventoryItem[] = [
     availabilityStatus: 'available',
     supplierVisibility: 'hidden',
     documentationSummary: 'Batch and release info available during RFQ review.',
-    seoTitle: 'MS29513-010 O-Ring New | Langit Aero',
+    seoTitle: 'MS29513-010 O-Ring New | Angkasa Supply',
     seoDescription:
       'MS29513-010 O-ring in new condition available through RFQ-led consumable sourcing.',
     indexable: true,
@@ -786,7 +786,7 @@ export const inventoryItems: InventoryItem[] = [
     supplierVisibility: 'hidden',
     documentationSummary: 'Original listing retained as an alternate-stock conversion page.',
     esnPolicy: 'withheld',
-    seoTitle: 'CFM56-5B Engine Alternatives | Langit Aero',
+    seoTitle: 'CFM56-5B Engine Alternatives | Angkasa Supply',
     seoDescription:
       'This CFM56-5B engine listing is no longer available. Submit an RFQ for alternate stock and comparable engine support.',
     indexable: true,

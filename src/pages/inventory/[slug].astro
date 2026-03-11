@@ -67,10 +67,10 @@ const productJsonLd = {
         : item.availabilityStatus === 'sold' || item.availabilityStatus === 'expired'
           ? 'https://schema.org/OutOfStock'
           : 'https://schema.org/LimitedAvailability',
-    url: `https://langitaero.com/inventory/${item.slug}`,
+    url: `https://angkasasupply.com/inventory/${item.slug}`,
     seller: {
       '@type': 'Organization',
-      name: 'Langit Aero',
+      name: 'Angkasa Supply',
     },
   },
 };
@@ -83,19 +83,19 @@ const breadcrumbJsonLd = {
       '@type': 'ListItem',
       position: 1,
       name: 'Inventory',
-      item: 'https://langitaero.com/inventory',
+      item: 'https://angkasasupply.com/inventory',
     },
     {
       '@type': 'ListItem',
       position: 2,
       name: item.category,
-      item: `https://langitaero.com${categoryHref}`,
+      item: `https://angkasasupply.com${categoryHref}`,
     },
     {
       '@type': 'ListItem',
       position: 3,
       name: item.title,
-      item: `https://langitaero.com/inventory/${item.slug}`,
+      item: `https://angkasasupply.com/inventory/${item.slug}`,
     },
   ],
 };

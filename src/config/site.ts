@@ -3,10 +3,10 @@ const configuredSiteUrl = (import.meta.env.PUBLIC_SITE_URL ?? '').trim();
 const configuredOgImage = (import.meta.env.PUBLIC_OG_IMAGE ?? '').trim();
 
 export const siteConfig = {
-  name: 'Langit Aero',
+  name: 'Angkasa Supply',
   tagline: 'Aircraft parts, engines, and AOG sourcing built for commercial clarity.',
   description:
-    'Langit Aero supports aircraft parts, engine, and AOG sourcing across APAC with a controlled RFQ workflow and a global supplier network.',
+    'Angkasa Supply supports aircraft parts, engine, and AOG sourcing across APAC with a controlled RFQ workflow and a global supplier network.',
   cta: {
     primaryLabel: 'Submit RFQ',
     primaryHref: '/rfq',
@@ -14,7 +14,7 @@ export const siteConfig = {
     secondaryHref: '/contact#aog-desk',
   },
   contact: {
-    email: 'sales@langitaero.com',
+    email: 'sales@angkasasupply.com',
     location: 'Kuala Lumpur, Malaysia',
     legalEntity: 'Neatly Nea Sdn Bhd (202501059817)',
   },
@@ -48,7 +48,7 @@ export const siteConfig = {
     embedMode: 'full-page' as const,
   },
   seo: {
-    siteUrl: (configuredSiteUrl || 'https://langitaero.com').replace(/\/+$/, ''),
+    siteUrl: (configuredSiteUrl || 'https://angkasasupply.com').replace(/\/+$/, ''),
     defaultOgImage: configuredOgImage || '/og-image.png',
     twitterHandle: '',
   },

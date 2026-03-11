@@ -1,0 +1,177 @@
+# Angkasa Supply — Full Website Assessment
+
+> Senior Advisor's critical review of codebase, design, content, and go-to-market readiness for an aircraft spare parts brokerage website.
+
+---
+
+## Current State Summary
+
+| Dimension | Stack / Status |
+|---|---|
+| Framework | Astro 5.18 (static, pre-rendered) |
+| Styling | Tailwind CSS 4 + vanilla CSS design tokens |
+| Hosting target | Cloudflare Pages (inferred from `functions/` dir) |
+| Pages | Home, Capabilities, Process, Compliance, Contact, RFQ, Privacy |
+| RFQ form | Tally embed — **currently unconfigured** |
+| Domain | `angkasasupply.com` (hardcoded in config) |
+| Legal entity | Neatly Nea Sdn Bhd (202501059817) |
+
+---
+
+## 🟢 What's Working Well
+
+### 1. Clean Technical Architecture
+The Astro + Tailwind stack is a strong choice: fully static, fast, SEO-friendly, zero client JS by default. Design tokens via CSS custom properties (`--color-canvas`, `--color-accent`, etc.) are well-structured and maintainable.
+
+### 2. Strong SEO Foundation
+- Proper `<title>`, `<meta description>`, Open Graph, Twitter Card tags on every page
+- Structured data (JSON-LD) for `Organization`, `WebSite`, `Service`, and `FAQPage`
+- Canonical URLs, `robots.txt`, `sitemap.xml` — all correctly generated
+- Skip-to-content link for accessibility
+
+### 3. Disciplined Messaging Tone
+The copy is unusually disciplined for an early-stage business. Phrases like *"No speculative stock language"*, *"Assumptions made explicit"*, and *"Traceability-first checks"* signal seriousness. This is the **right voice** for aviation procurement buyers.
+
+### 4. Component Architecture
+Components are small, typed, and reusable (`SectionHeader`, `CapabilityCard`, `ProcessStep`, etc.). The centralized `site.ts` config is excellent for maintainability.
+
+---
+
+## 🔴 Critical Issues (Must Fix Before Launch)
+
+### 1. RFQ Page Is Broken — Your #1 Conversion Point Is Dead
+
+![RFQ page showing unconfigured Tally form placeholder](/home/iskandar/.gemini/antigravity/brain/c191bc49-f0da-4777-bda1-35ce31ddf0c6/rfq_page_unconfigured_1772722514970.png)
+
+The entire site funnels toward "Submit RFQ", but the RFQ page shows a developer-facing placeholder: *"Set `PUBLIC_TALLY_FORM_ID` in your environment..."*. A prospect who clicks your primary CTA lands on a dead page. **This is a launch blocker.**
+
+> [!CAUTION]
+> Every CTA on every page points to `/rfq`. If a buyer lands here and sees a broken form, you've lost all credibility. Configure the Tally form ID or replace with a direct `mailto:` fallback immediately.
+
+### 2. WhatsApp Number Is a Placeholder
+In `site.ts`, the WhatsApp field is `+60 00-000 0000`. Even though it's not visibly displayed on any page currently, it's in your config and could leak into structured data or future components.
+
+### 3. No Mobile Hamburger Menu
+
+![Header wrapping issue visible on narrower viewports](/home/iskandar/.gemini/antigravity/brain/c191bc49-f0da-4777-bda1-35ce31ddf0c6/homepage_hero_and_header_1772722044531.png)
+
+The header wraps nav items onto a second row on narrower screens. There is **no hamburger/mobile menu**. On phones, the header will consume significant screen real estate and look unprofessional. Aviation buyers use mobile — especially during AOG events.
+
+### 4. No `About` or Company Story Page
+For a **broker**, trust is everything. Buyers are handing you six-figure POs. There is no page explaining:
+- Who is behind Angkasa Supply?
+- What is the team's background in aviation?
+- How long have you been in the industry?
+- What certifications or affiliations do you hold?
+
+The compliance page partly addresses this, but it reads as policy, not trust-building.
+
+---
+
+## 🟡 Strategic Concerns (Fix Before Scaling)
+
+### 5. The Name Question — "Angkasa Supply"
+You mentioned the name isn't finalized. Quick take:
+- **Pros**: "Angkasa" (space/sky in Malay/Indonesian usage) is regionally resonant, distinct, and commercially legible. The domain `angkasasupply.com` is straightforward.
+- **Cons**: Non-APAC buyers may not connect with it. In aviation B2B, many competitors use functional names (GlobalParts, AeroParts Direct, etc.).
+- **Advice**: The name is fine *if you own it confidently*. But decide soon — every day you delay, you're building brand equity on something tentative. The logo placeholder ("LA" in a box) reinforces the "not finalized" feeling.
+
+### 6. No Social Proof or Credibility Signals
+The "proof stats" section uses internal process numbers (5 steps, 3 cert pathways), not external proof:
+- No customer logos or testimonials
+- No "parts sourced" or "orders fulfilled" count
+- No industry body memberships (AFRA, ASA, etc.)
+- No certifications listed
+
+For an aviation broker, an ASA/AFRA membership badge or even "X airlines served" would dramatically increase conversion.
+
+### 7. Content Repetition Across Pages
+The Capabilities and Process content appears on the homepage AND on their dedicated pages with only minor wording changes. A procurement manager who visits `/capabilities` after seeing the homepage will feel like they're re-reading the same page. Each page should add depth, not repeat.
+
+### 8. No "About Us" Differentiation
+Every page says *"disciplined"*, *"traceability-first"*, *"verification gates"*. This is great messaging, but without a story behind it, it reads as corporate template language. Who is the founder? What's the origin story? Why should I trust a new broker?
+
+### 9. Missing `tel:` and WhatsApp Links
+The contact page only shows email. In APAC aviation, WhatsApp is the primary communication channel for urgent procurement. The contact page should prominently feature a WhatsApp click-to-chat link with a real number.
+
+### 10. No OG Image (Using SVG Fallback)
+The default OG image is an SVG (`/og-default.svg`). Most social platforms (LinkedIn, WhatsApp) **do not render SVGs** as thumbnails. You need a rasterized PNG/JPG OG image (1200×630px). When someone shares your link, they'll see a broken or missing preview — devastating for credibility.
+
+---
+
+## 🟠 Design & UX Issues
+
+### 11. Visual Monotony
+The site uses the same card pattern (`surface-panel`) everywhere — hero trust panel, proof cards, capability cards, process steps, compliance articles, contact cards, FAQ accordions. Everything is a white rounded rectangle with a subtle border. This creates visual fatigue.
+
+**Recommendation**: Vary the visual treatment — use icons, illustrations, subtle gradients, or alternating background tones to differentiate sections.
+
+### 12. No Imagery Whatsoever
+There are **zero images** on the entire site — no aircraft photos, no warehouse shots, no team photos, no part photography. For a physical goods business, this is a glaring omission. Even one hero image of an aircraft engine or a well-organized parts warehouse would dramatically improve first impression.
+
+### 13. FAQ Lacks Expand/Collapse Indicator
+The FAQ uses `<details>` elements but hides the default marker (`marker:hidden`) without adding a custom chevron/arrow. Users may not realize these are clickable.
+
+### 14. Footer Is Too Sparse
+The footer shows the company name, tagline, location, legal entity, and email. It's missing:
+- Footer navigation links
+- Copyright year
+- Privacy policy link
+- Social media links (if any)
+
+---
+
+## 🔵 Technical Debt & Nitpicks
+
+### 15. Tailwind v4 with v3-Style Config
+You're importing Tailwind CSS v4 via `@tailwindcss/vite`, but the `tailwind.config.mjs` file uses v3 config format. Tailwind v4 uses CSS-based configuration (`@theme` directives). The custom color utilities defined manually in `global.css` (`.text-ink`, `.bg-canvas`, etc.) suggest the Tailwind integration isn't fully leveraging v4's features.
+
+### 16. No Error/404 Page
+There is no custom 404 page. Lost visitors will see the default Astro/hosting 404, which breaks the brand experience.
+
+### 17. No Analytics
+No Google Analytics, Plausible, Fathom, or any analytics tag. You won't know if anyone is visiting, where they come from, or where they drop off.
+
+### 18. No Cookie/Privacy Banner
+The privacy page mentions data collection, but there's no cookie consent banner — required in many jurisdictions.
+
+### 19. `functions/` Directory
+There's a `functions/` directory (likely a Cloudflare Pages Function for email notifications). This hasn't been reviewed in detail but could be a security surface if it handles form webhooks.
+
+---
+
+## Priority Action Plan
+
+| Priority | Action | Effort |
+|---|---|---|
+| 🔴 P0 | Configure Tally form ID or add `mailto:` fallback on RFQ page | 10 min |
+| 🔴 P0 | Fix the WhatsApp placeholder number in config | 5 min |
+| 🔴 P0 | Add mobile hamburger menu | 2-3 hrs |
+| 🟡 P1 | Create a proper rasterized OG image (PNG, 1200×630) | 1 hr |
+| 🟡 P1 | Add an About page with founder story and team credibility | 3-4 hrs |
+| 🟡 P1 | Add WhatsApp click-to-chat link on contact page | 30 min |
+| 🟡 P1 | Add at least one hero/banner image | 1-2 hrs |
+| 🟡 P2 | Add industry association badges/logos if applicable | 1 hr |
+| 🟡 P2 | Create a custom 404 page | 1 hr |
+| 🟡 P2 | Add analytics (Plausible or Fathom recommended for simplicity) | 30 min |
+| 🟠 P2 | Finalize the business name and create a proper logo | Variable |
+| 🟠 P2 | Differentiate content between homepage sections and dedicated pages | 3-4 hrs |
+| 🟠 P3 | Add FAQ expand/collapse indicators | 30 min |
+| 🟠 P3 | Enrich footer with nav links, copyright, privacy link | 1 hr |
+| 🔵 P3 | Migrate Tailwind config to v4 CSS-native format | 2 hrs |
+| 🔵 P3 | Add cookie/privacy consent banner | 2 hrs |
+
+---
+
+## Bottom Line
+
+**The bones are excellent.** The architecture is clean, the messaging tone is mature, and the process discipline you're communicating is exactly what aviation procurement buyers want to hear. However, **the site is not launch-ready** because:
+
+1. Your primary conversion funnel (RFQ form) is broken
+2. There's zero social proof or human trust signals
+3. Mobile experience is compromised without a hamburger menu
+4. No imagery makes the site feel like a template rather than a real business
+
+Fix the P0s this week, tackle P1s before sharing the link with real prospects, and build out the P2/P3 items as you operationalize.
+
+The market you're targeting (APAC aircraft spares brokerage) rewards professionalism and trust. You're 70% of the way there on messaging. The last 30% is visual proof and operational readiness.
