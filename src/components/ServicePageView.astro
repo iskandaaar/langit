@@ -1,0 +1,134 @@
+---
+import type { Article, InventoryItem, ServicePage } from '../lib/types';
+import { renderPortableText } from '../lib/portableText';
+import { buildRfqHref } from '../lib/rfq';
+import CTASection from './CTASection.astro';
+import FAQAccordion from './FAQAccordion.astro';
+import InventoryCard from './InventoryCard.astro';
+import ArticleCard from './ArticleCard.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+
+interface Props {
+  page: ServicePage;
+  relatedInventory: InventoryItem[];
+  relatedArticles: Article[];
+}
+
+const { page, relatedInventory, relatedArticles } = Astro.props;
+const bodyHtml = renderPortableText(page.body);
+const rfqHref = buildRfqHref({
+  source_type: 'service',
+  source_page: `/${page.slug}`,
+  inventory_title: page.title,
+});
+---
+
+<Breadcrumbs
+  items={[
+    { label: 'Home', href: '/' },
+    { label: page.title },
+  ]}
+/>
+
+<section class="hero-shell relative mt-8 overflow-hidden px-6 py-10 sm:px-10 lg:px-14 lg:py-14">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="relative grid gap-8 lg:grid-cols-[1.25fr_0.95fr] lg:items-start">
+    <div>
+      <p class="kicker">Service Page</p>
+      <h1 class="mt-5 max-w-3xl font-display text-4xl leading-tight text-ink sm:text-5xl">
+        {page.heroTitle}
+      </h1>
+      <p class="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+        {page.heroIntro}
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={rfqHref} class="btn btn-primary">Submit RFQ</a>
+        <a href={`/inventory/${page.featuredCategory}`} class="btn btn-secondary">
+          Browse {page.featuredCategory}
+        </a>
+      </div>
+    </div>
+
+    <aside class="surface-panel p-6 sm:p-7">
+      <p class="kicker">What This Page Covers</p>
+      <ul class="marked-list mt-5 list-disc text-sm leading-relaxed text-ink/90">
+        {page.highlights.map((highlight) => <li>{highlight}</li>)}
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<section class="mt-16">
+  <div class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
+    <article class="surface-panel p-6 sm:p-8">
+      <p class="kicker">Commercial Context</p>
+      <div class="rich-text mt-4" set:html={bodyHtml} />
+    </article>
+
+    <aside class="surface-panel p-6 sm:p-8">
+      <p class="kicker">Commercial Focus</p>
+      <dl class="mt-5 space-y-5">
+        <div>
+          <dt class="text-xs uppercase tracking-[0.16em] text-muted">Category</dt>
+          <dd class="mt-1 font-display text-xl text-ink capitalize">{page.featuredCategory}</dd>
+        </div>
+        <div>
+          <dt class="text-xs uppercase tracking-[0.16em] text-muted">Response Path</dt>
+          <dd class="mt-1 text-sm leading-relaxed text-muted">
+            All commercial handling stays RFQ-first so timing, cert needs, and alternate-condition requests are captured in one workflow.
+          </dd>
+        </div>
+        <div>
+          <dt class="text-xs uppercase tracking-[0.16em] text-muted">Supplier Handling</dt>
+          <dd class="mt-1 text-sm leading-relaxed text-muted">
+            Public pages stay commercially useful without disclosing confidential supplier identity or unverified price points.
+          </dd>
+        </div>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<section class="mt-16">
+  <div class="flex items-end justify-between gap-6">
+    <div>
+      <p class="kicker">Related Inventory</p>
+      <h2 class="mt-4 font-display text-2xl text-ink sm:text-3xl">Listings matched to this service line</h2>
+    </div>
+    <a href={`/inventory/${page.featuredCategory}`} class="text-sm font-semibold text-accent">
+      View category
+    </a>
+  </div>
+  <div class="mt-8 grid gap-5 lg:grid-cols-3">
+    {relatedInventory.map((item) => <InventoryCard item={item} />)}
+  </div>
+</section>
+
+<section class="mt-16">
+  <div class="flex items-end justify-between gap-6">
+    <div>
+      <p class="kicker">Support Content</p>
+      <h2 class="mt-4 font-display text-2xl text-ink sm:text-3xl">Articles that reinforce buyer intent</h2>
+    </div>
+  </div>
+  <div class="mt-8 grid gap-5 lg:grid-cols-3">
+    {relatedArticles.map((article) => <ArticleCard article={article} />)}
+  </div>
+</section>
+
+<section class="mt-16">
+  <p class="kicker">FAQ</p>
+  <h2 class="mt-4 font-display text-2xl text-ink sm:text-3xl">Questions buyers usually ask</h2>
+  <div class="mt-8">
+    <FAQAccordion items={page.faq} />
+  </div>
+</section>
+
+<CTASection
+  title="Need a current quote rather than a generic capability statement?"
+  description="Use the RFQ flow to submit model, part number, condition, cert requirement, and needed-by timing in one pass."
+  primaryLabel="Submit RFQ"
+  primaryHref={rfqHref}
+  secondaryLabel="Contact Desk"
+  secondaryHref="/contact"
+/>

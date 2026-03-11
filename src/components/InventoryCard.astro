@@ -1,0 +1,63 @@
+---
+import type { InventoryItem } from '../lib/types';
+import { buildRfqHref } from '../lib/rfq';
+
+interface Props {
+  item: InventoryItem;
+}
+
+const { item } = Astro.props;
+
+const labelMap = {
+  available: 'Available',
+  rfq: 'RFQ',
+  on_hold: 'On Hold',
+  sold: 'Unavailable',
+  expired: 'Expired',
+} as const;
+
+const identityLabel = item.partNumber || item.engineModel || item.title;
+const rfqHref = buildRfqHref({
+  source_type: 'inventory',
+  source_page: `/inventory/${item.slug}`,
+  inventory_slug: item.slug,
+  inventory_title: item.title,
+  part_number: item.partNumber,
+  engine_model: item.engineModel,
+});
+---
+
+<article class="surface-panel h-full p-6">
+  <div class="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+    <span class="status-pill">{labelMap[item.availabilityStatus]}</span>
+    <span>{item.category}</span>
+  </div>
+  <h3 class="mt-4 font-display text-xl text-ink">
+    <a href={`/inventory/${item.slug}`} class="hover:text-accent transition-colors">
+      {item.title}
+    </a>
+  </h3>
+  <p class="mt-2 text-sm leading-relaxed text-muted">{item.shortDescription}</p>
+  <dl class="mt-5 grid gap-3 text-sm sm:grid-cols-2">
+    <div>
+      <dt class="text-xs uppercase tracking-[0.16em] text-muted">Identity</dt>
+      <dd class="mt-1 text-ink">{identityLabel}</dd>
+    </div>
+    <div>
+      <dt class="text-xs uppercase tracking-[0.16em] text-muted">Condition</dt>
+      <dd class="mt-1 text-ink">{item.condition}</dd>
+    </div>
+    <div>
+      <dt class="text-xs uppercase tracking-[0.16em] text-muted">Region</dt>
+      <dd class="mt-1 text-ink">{item.locationRegion}</dd>
+    </div>
+    <div>
+      <dt class="text-xs uppercase tracking-[0.16em] text-muted">Certification</dt>
+      <dd class="mt-1 text-ink">{item.certification}</dd>
+    </div>
+  </dl>
+  <div class="mt-6 flex flex-wrap gap-3">
+    <a href={`/inventory/${item.slug}`} class="btn btn-secondary">View Listing</a>
+    <a href={rfqHref} class="btn btn-primary">Request Quote</a>
+  </div>
+</article>

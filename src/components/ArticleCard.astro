@@ -1,0 +1,27 @@
+---
+import type { Article } from '../lib/types';
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+---
+
+<article class="surface-panel h-full p-6">
+  <p class="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+    Article
+  </p>
+  <h3 class="mt-4 font-display text-xl text-ink">
+    <a href={`/blog/${article.slug}`} class="hover:text-accent transition-colors">
+      {article.title}
+    </a>
+  </h3>
+  <p class="mt-2 text-sm leading-relaxed text-muted">{article.excerpt}</p>
+  <p class="mt-4 text-xs uppercase tracking-[0.16em] text-muted">
+    Published {article.publishedAt}
+  </p>
+  <div class="mt-6">
+    <a href={`/blog/${article.slug}`} class="btn btn-secondary">Read Article</a>
+  </div>
+</article>

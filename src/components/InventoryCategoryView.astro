@@ -1,0 +1,126 @@
+---
+import type { Article, InventoryCategoryPage, InventoryItem } from '../lib/types';
+import { renderPortableText } from '../lib/portableText';
+import { buildRfqHref } from '../lib/rfq';
+import ArticleCard from './ArticleCard.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import CTASection from './CTASection.astro';
+import FAQAccordion from './FAQAccordion.astro';
+import InventoryCard from './InventoryCard.astro';
+
+interface Props {
+  categoryPage: InventoryCategoryPage;
+  items: InventoryItem[];
+  relatedArticles: Article[];
+}
+
+const { categoryPage, items, relatedArticles } = Astro.props;
+const bodyHtml = renderPortableText(categoryPage.body);
+const rfqHref = buildRfqHref({
+  source_type: 'category',
+  source_page: `/inventory/${categoryPage.slug}`,
+  inventory_title: categoryPage.title,
+});
+---
+
+<Breadcrumbs
+  items={[
+    { label: 'Home', href: '/' },
+    { label: 'Inventory', href: '/inventory' },
+    { label: categoryPage.title },
+  ]}
+/>
+
+<section class="hero-shell relative mt-8 overflow-hidden px-6 py-10 sm:px-10 lg:px-14 lg:py-14">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="relative grid gap-8 lg:grid-cols-[1.2fr_0.85fr] lg:items-start">
+    <div>
+      <p class="kicker">Inventory Category</p>
+      <h1 class="mt-5 font-display text-4xl leading-tight text-ink sm:text-5xl">
+        {categoryPage.title}
+      </h1>
+      <p class="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+        {categoryPage.intro}
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={rfqHref} class="btn btn-primary">Submit RFQ</a>
+        <a href="/inventory" class="btn btn-secondary">View all inventory</a>
+      </div>
+    </div>
+
+    <aside class="surface-panel p-6 sm:p-7">
+      <p class="kicker">Category Signals</p>
+      <dl class="mt-5 space-y-5">
+        <div>
+          <dt class="text-xs uppercase tracking-[0.16em] text-muted">Listings</dt>
+          <dd class="mt-1 font-display text-3xl text-ink">{items.length}</dd>
+        </div>
+        <div>
+          <dt class="text-xs uppercase tracking-[0.16em] text-muted">Status</dt>
+          <dd class="mt-1 text-sm leading-relaxed text-muted">
+            Only curated, indexable listings are published publicly. Thin or duplicate inventory stays out of search.
+          </dd>
+        </div>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<section class="mt-16">
+  <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+    <article class="surface-panel p-6 sm:p-8">
+      <p class="kicker">Category Overview</p>
+      <div class="rich-text mt-4" set:html={bodyHtml} />
+    </article>
+    <aside class="surface-panel p-6 sm:p-8">
+      <p class="kicker">RFQ Guidance</p>
+      <ul class="marked-list mt-5 list-disc text-sm leading-relaxed text-ink/90">
+        <li>Include part number or model identity wherever possible.</li>
+        <li>State condition expectations and certification requirements clearly.</li>
+        <li>Add destination and needed-by time for any urgency-sensitive request.</li>
+        <li>Use the same RFQ flow for alternate-condition or replacement sourcing.</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<section class="mt-16">
+  <div class="flex items-end justify-between gap-6">
+    <div>
+      <p class="kicker">Published Listings</p>
+      <h2 class="mt-4 font-display text-2xl text-ink sm:text-3xl">Curated pages built to rank and convert</h2>
+    </div>
+  </div>
+  <div class="mt-8 grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
+    {items.map((item) => <InventoryCard item={item} />)}
+  </div>
+</section>
+
+<section class="mt-16">
+  <div class="flex items-end justify-between gap-6">
+    <div>
+      <p class="kicker">Educational Support</p>
+      <h2 class="mt-4 font-display text-2xl text-ink sm:text-3xl">Articles linked into this category cluster</h2>
+    </div>
+  </div>
+  <div class="mt-8 grid gap-5 lg:grid-cols-3">
+    {relatedArticles.map((article) => <ArticleCard article={article} />)}
+  </div>
+</section>
+
+<section class="mt-16">
+  <p class="kicker">FAQ</p>
+  <h2 class="mt-4 font-display text-2xl text-ink sm:text-3xl">Questions buyers ask before sending the RFQ</h2>
+  <div class="mt-8">
+    <FAQAccordion items={categoryPage.faq} />
+  </div>
+</section>
+
+<CTASection
+  title="Need a specific model, condition, or alternate option?"
+  description="Use the RFQ page to route your requirement into the sourcing workflow with timing and certification context attached."
+  primaryLabel="Submit RFQ"
+  primaryHref={rfqHref}
+  secondaryLabel="Contact Desk"
+  secondaryHref="/contact"
+/>

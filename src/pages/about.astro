@@ -1,65 +1,62 @@
 ---
-import CTASection from "../components/CTASection.astro";
-import SectionHeader from "../components/SectionHeader.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import CTASection from '../components/CTASection.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const aboutJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'About Langit Aero',
+};
 ---
 
 <BaseLayout
-    title="About Us"
-    description="Learn about Airworthy Supply, an APAC-focused aircraft spare parts broker built on traceability and speed."
+  title="About Langit Aero"
+  description="Learn how Langit Aero approaches aircraft parts, engine, and AOG sourcing with commercial discipline and a controlled RFQ workflow."
+  jsonLd={aboutJsonLd}
 >
-    <section class="mt-12">
-        <SectionHeader
-            kicker="About Us"
-            headingTag="h1"
-            title="Built for operators who need certainty"
-            description="Airworthy Supply is a specialized brokerage desk serving the APAC region. We bypass the friction of traditional sourcing by leading with trace evidence and strict verification gates."
-        />
-
-        <div class="mt-10 grid gap-8 lg:grid-cols-2">
-            <div class="surface-panel p-6 sm:p-8">
-                <h3 class="font-display text-xl text-ink">Our Mission</h3>
-                <p class="mt-4 text-sm leading-relaxed text-muted sm:text-base">
-                    To provide a unified, highly accountable sourcing desk for
-                    aviation spares. Whether it's a routine consumable
-                    replenishment or a critical AOG timeframe, we believe in
-                    radical transparency regarding stock location, cert
-                    pathways, and lead times.
-                </p>
-            </div>
-            <div class="surface-panel p-6 sm:p-8">
-                <h3 class="font-display text-xl text-ink">
-                    The Langit Aero Standard
-                </h3>
-                <p class="mt-4 text-sm leading-relaxed text-muted sm:text-base">
-                    We don't use speculative stock language. Every quote we
-                    issue is backed by explicit assumptions. Our anti-fraud and
-                    verification mechanisms ensure that you know exactly what
-                    you're buying before the PO is cut.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section class="mt-16">
-        <SectionHeader
-            kicker="Leadership"
-            title="The team behind the desk"
-            description="Decades of combined experience in aviation procurement, MRO supply chain, and logistics."
-        />
-        <div class="surface-panel p-6 text-center sm:p-12">
-            <p class="text-sm text-muted">
-                [ Founder / Team profiles to be added ]
-            </p>
-        </div>
-    </section>
-
-    <CTASection
-        title="Work with a desk that values your time"
-        description="Send us a trial RFQ and experience the difference in our sourcing and communication discipline."
-        primaryLabel="Submit RFQ"
-        primaryHref="/rfq"
-        secondaryLabel="Contact Us"
-        secondaryHref="/contact"
+  <section class="mt-12">
+    <SectionHeader
+      kicker="About"
+      headingTag="h1"
+      title="Aviation sourcing built around clarity, not speculative stock language."
+      description="Langit Aero is positioned as a focused brokerage partner for aircraft parts, engines, and AOG requirements across APAC, with a public site designed to attract qualified demand without exposing sensitive commercial detail."
     />
+
+    <div class="grid gap-5 lg:grid-cols-[1.15fr_0.85fr]">
+      <article class="surface-panel p-6 sm:p-8">
+        <h2 class="font-display text-2xl text-ink">What the business is optimizing for</h2>
+        <div class="rich-text mt-4">
+          <p>
+            The site is intentionally structured around service pages, category hubs, and curated listing pages because that is the mix most likely to rank and convert in aviation brokerage.
+          </p>
+          <p>
+            Public pages establish topical depth and commercial credibility. The RFQ flow then carries the real transaction context: timing, certification, destination, condition, and alternate-stock needs.
+          </p>
+          <p>
+            That balance matters in this niche. Buyers need enough public information to trust the inquiry process, but not every detail should be exposed before qualification.
+          </p>
+        </div>
+      </article>
+
+      <aside class="surface-panel p-6 sm:p-8">
+        <h2 class="font-display text-2xl text-ink">Operating principles</h2>
+        <ul class="marked-list mt-4 list-disc text-sm leading-relaxed text-ink/90">
+          <li>Keep supplier identity and sensitive commercial detail controlled.</li>
+          <li>Publish only listings with enough unique value to earn indexation.</li>
+          <li>Use one structured RFQ path across engines, rotables, consumables, and AOG demand.</li>
+          <li>Maintain clear condition, certification, and region context on public pages.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <CTASection
+    title="Need to move from public page to active sourcing?"
+    description="Use the RFQ flow to send the real commercial details without relying on generic capability claims."
+    primaryLabel="Submit RFQ"
+    primaryHref="/rfq"
+    secondaryLabel="View Inventory"
+    secondaryHref="/inventory"
+  />
 </BaseLayout>

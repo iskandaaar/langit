@@ -1,0 +1,25 @@
+---
+import ServicePageView from '../components/ServicePageView.astro';
+import { getFeaturedArticles, getInventoryItemsByCategory, getServicePageBySlug } from '../lib/content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const page = await getServicePageBySlug('surplus-inventory');
+if (!page) throw new Error('Missing surplus-inventory service page content.');
+
+const [relatedInventory, relatedArticles] = await Promise.all([
+  getInventoryItemsByCategory(page.featuredCategory),
+  getFeaturedArticles(3),
+]);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: page.title,
+  serviceType: page.title,
+  description: page.seoDescription,
+};
+---
+
+<BaseLayout title={page.seoTitle} description={page.seoDescription} jsonLd={jsonLd}>
+  <ServicePageView page={page} relatedInventory={relatedInventory.slice(0, 3)} relatedArticles={relatedArticles} />
+</BaseLayout>

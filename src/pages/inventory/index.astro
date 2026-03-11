@@ -1,0 +1,96 @@
+---
+import CapabilityCard from '../../components/CapabilityCard.astro';
+import CTASection from '../../components/CTASection.astro';
+import InventoryCard from '../../components/InventoryCard.astro';
+import SectionHeader from '../../components/SectionHeader.astro';
+import { getFeaturedInventory, getInventoryCategoryPages } from '../../lib/content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const [featuredInventory] = await Promise.all([getFeaturedInventory(9)]);
+const categoryPages = getInventoryCategoryPages();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Inventory',
+  description:
+    'Curated inventory hub for engines, rotables, and consumables, built around indexable listing pages and RFQ conversion.',
+};
+---
+
+<BaseLayout
+  title="Aircraft Inventory | Langit Aero"
+  description="Browse Langit Aero inventory across engines, rotables, and consumables. Listings are curated for search visibility, commercial clarity, and RFQ conversion."
+  jsonLd={jsonLd}
+>
+  <section class="hero-shell relative mt-8 overflow-hidden px-6 py-10 sm:px-10 lg:px-14 lg:py-14">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="relative grid gap-8 lg:grid-cols-[1.2fr_0.9fr] lg:items-start">
+      <div>
+        <p class="kicker">Inventory Hub</p>
+        <h1 class="mt-5 max-w-3xl font-display text-4xl leading-tight text-ink sm:text-5xl">
+          Curated aircraft inventory pages for exact-intent search and RFQ conversion.
+        </h1>
+        <p class="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+          The inventory structure is split into categories and listing pages so buyers can move from broad intent into exact model and part-number demand without hitting a thin spreadsheet dump.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/rfq" class="btn btn-primary">Submit RFQ</a>
+          <a href="/engine-sourcing" class="btn btn-secondary">Engine sourcing</a>
+        </div>
+      </div>
+
+      <aside class="surface-panel p-6 sm:p-7">
+        <p class="kicker">Publishing Rules</p>
+        <ul class="marked-list mt-5 list-disc text-sm leading-relaxed text-ink/90">
+          <li>Only enriched listings are indexable.</li>
+          <li>Expired pages stay live only when they still convert alternate demand.</li>
+          <li>Pricing remains RFQ-first unless public pricing is genuinely supportable.</li>
+          <li>Structured data matches what the buyer can actually see.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="mt-16">
+    <SectionHeader
+      kicker="Categories"
+      title="Inventory clusters that build topical depth"
+      description="Each category page contains introductory copy, curated listings, support articles, and a clear RFQ path."
+    />
+    <div class="grid gap-5 lg:grid-cols-3">
+      {
+        categoryPages.map((category) => (
+          <CapabilityCard
+            title={category.title}
+            summary={category.intro}
+            points={category.faq.map((item) => item.question)}
+          />
+        ))
+      }
+    </div>
+    <div class="mt-6 flex flex-wrap gap-3">
+      {categoryPages.map((category) => <a href={`/inventory/${category.slug}`} class="btn btn-secondary">{category.title}</a>)}
+    </div>
+  </section>
+
+  <section class="mt-16">
+    <SectionHeader
+      kicker="Featured Listings"
+      title="Indexable pages seeded for long-tail search demand"
+      description="These pages combine exact identity, condition, region, and RFQ context so they are commercially useful and machine-readable."
+    />
+    <div class="grid gap-5 lg:grid-cols-3">
+      {featuredInventory.map((item) => <InventoryCard item={item} />)}
+    </div>
+  </section>
+
+  <CTASection
+    title="Need stock beyond what is publicly listed?"
+    description="The public inventory is curated on purpose. Use the RFQ flow for alternates, replacements, and supplier-network checks."
+    primaryLabel="Submit RFQ"
+    primaryHref="/rfq"
+    secondaryLabel="Contact Desk"
+    secondaryHref="/contact"
+  />
+</BaseLayout>

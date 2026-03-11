@@ -2,11 +2,25 @@
 import SectionHeader from "../components/SectionHeader.astro";
 import { hasConfiguredTallyForm, tallyEmbedUrl } from "../config/site";
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const forwardedParams = new URLSearchParams(Astro.url.searchParams);
+const contextualTitle = forwardedParams.get('inventory_title');
+const contextualModel = forwardedParams.get('engine_model') || forwardedParams.get('part_number');
+const contextualSource = forwardedParams.get('source_page');
+const embedUrl = hasConfiguredTallyForm
+  ? (() => {
+      const url = new URL(tallyEmbedUrl);
+      forwardedParams.forEach((value, key) => {
+        url.searchParams.set(key, value);
+      });
+      return url.toString();
+    })()
+  : '';
 ---
 
 <BaseLayout
   title="RFQ"
-  description="Submit an Airworthy Supply RFQ through the embedded Tally form for structured part sourcing intake."
+  description="Submit a Langit Aero RFQ through the embedded Tally form for structured aircraft parts and engine sourcing intake."
 >
   <section class="mt-12">
     <SectionHeader
@@ -17,12 +31,29 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     />
 
     {
+      contextualTitle || contextualModel || contextualSource ? (
+        <div class="surface-panel mb-5 p-5">
+          <p class="kicker">Request Context</p>
+          <p class="mt-3 text-sm leading-relaxed text-muted">
+            {
+              contextualTitle
+                ? `You are requesting follow-up on ${contextualTitle}${contextualModel ? ` (${contextualModel})` : ''}.`
+                : contextualSource
+                  ? `You arrived here from ${contextualSource}.`
+                  : 'Context from the source page will be forwarded with this RFQ.'
+            }
+          </p>
+        </div>
+      ) : null
+    }
+
+    {
       hasConfiguredTallyForm ? (
         <div class="surface-panel overflow-hidden p-1">
           <iframe
             id="tally-embed"
-            src={tallyEmbedUrl}
-            title="Airworthy Supply RFQ form"
+            src={embedUrl}
+            title="Langit Aero RFQ form"
             class="min-h-[900px] w-full rounded-[0.85rem] border-0 bg-white"
             loading="lazy"
           />
@@ -40,7 +71,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     }
 
     <p class="mt-4 text-sm text-muted">
-      AOG? Put "AOG" in subject and needed-by time.
+      AOG? Put "AOG" in subject and include the needed-by time plus destination.
     </p>
   </section>
 </BaseLayout>

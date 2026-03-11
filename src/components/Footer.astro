@@ -16,7 +16,7 @@ import { siteConfig } from "../config/site";
         <p class="font-display text-base text-ink">Navigation</p>
         <ul class="mt-4 space-y-2 text-sm text-muted">
           {
-            siteConfig.navigation.map((item) => (
+            siteConfig.footerNavigation.map((item) => (
               <li>
                 <a href={item.href} class="hover:text-accent transition-colors">
                   {item.label}
@@ -52,9 +52,13 @@ import { siteConfig } from "../config/site";
         {siteConfig.name}. All rights reserved.
       </p>
       <div class="flex gap-4">
-        <a href="/privacy" class="hover:text-accent transition-colors"
-          >Privacy Policy</a
-        >
+        {
+          siteConfig.footerUtilityLinks.map((link) => (
+            <a href={link.href} class="hover:text-accent transition-colors">
+              {link.label}
+            </a>
+          ))
+        }
       </div>
     </div>
   </div>

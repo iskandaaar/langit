@@ -1,9 +1,8 @@
 import type { APIRoute } from 'astro';
+import { getSitemapPaths } from '../lib/content';
 import { toAbsoluteSiteUrl } from '../config/site';
 
 export const prerender = true;
-
-const staticPaths = ['/', '/about', '/capabilities', '/process', '/compliance', '/contact', '/rfq', '/privacy'];
 
 const getBaseSiteUrl = (site?: URL): string | null => {
   if (site) return site.toString().replace(/\/+$/, '');
@@ -12,8 +11,9 @@ const getBaseSiteUrl = (site?: URL): string | null => {
   return fallback ? fallback.replace(/\/+$/, '') : null;
 };
 
-export const GET: APIRoute = ({ site }) => {
+export const GET: APIRoute = async ({ site }) => {
   const baseSiteUrl = getBaseSiteUrl(site);
+  const staticPaths = await getSitemapPaths();
   const urls = baseSiteUrl
     ? staticPaths.map((path) => new URL(path, `${baseSiteUrl}/`).toString())
     : [];

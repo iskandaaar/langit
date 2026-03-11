@@ -3,10 +3,10 @@ const configuredSiteUrl = (import.meta.env.PUBLIC_SITE_URL ?? '').trim();
 const configuredOgImage = (import.meta.env.PUBLIC_OG_IMAGE ?? '').trim();
 
 export const siteConfig = {
-  name: 'Airworthy Supply',
-  tagline: 'Consumables to engines, sourced right.',
+  name: 'Langit Aero',
+  tagline: 'Aircraft parts, engines, and AOG sourcing built for commercial clarity.',
   description:
-    'Airworthy Supply brokers aircraft spare parts across APAC with global supplier reach and a strict traceability-first workflow.',
+    'Langit Aero supports aircraft parts, engine, and AOG sourcing across APAC with a controlled RFQ workflow and a global supplier network.',
   cta: {
     primaryLabel: 'Submit RFQ',
     primaryHref: '/rfq',
@@ -14,17 +14,32 @@ export const siteConfig = {
     secondaryHref: '/contact#aog-desk',
   },
   contact: {
-    email: 'sales@airworthysupply.com',
+    email: 'sales@langitaero.com',
     location: 'Kuala Lumpur, Malaysia',
     legalEntity: 'Neatly Nea Sdn Bhd (202501059817)',
   },
   navigation: [
     { href: '/', label: 'Home' },
+    { href: '/inventory', label: 'Inventory' },
+    { href: '/engine-sourcing', label: 'Engine Sourcing' },
+    { href: '/aog-support', label: 'AOG Support' },
+    { href: '/rotable-parts', label: 'Rotable Parts' },
+    { href: '/aviation-consumables', label: 'Consumables' },
     { href: '/about', label: 'About' },
-    { href: '/capabilities', label: 'Capabilities' },
+    { href: '/contact', label: 'Contact' },
+  ],
+  footerNavigation: [
+    { href: '/inventory', label: 'Inventory' },
+    { href: '/engine-sourcing', label: 'Engine Sourcing' },
+    { href: '/aog-support', label: 'AOG Support' },
+    { href: '/rotable-parts', label: 'Rotable Parts' },
+    { href: '/aviation-consumables', label: 'Consumables' },
+    { href: '/surplus-inventory', label: 'Surplus Inventory' },
     { href: '/process', label: 'Process' },
     { href: '/compliance', label: 'Compliance' },
-    { href: '/contact', label: 'Contact' },
+  ],
+  footerUtilityLinks: [
+    { href: '/privacy', label: 'Privacy Policy' },
   ],
   tally: {
     // Preferred: set PUBLIC_TALLY_FORM_ID in environment variables.
@@ -33,7 +48,7 @@ export const siteConfig = {
     embedMode: 'full-page' as const,
   },
   seo: {
-    siteUrl: (configuredSiteUrl || 'https://airworthysupply.com').replace(/\/+$/, ''),
+    siteUrl: (configuredSiteUrl || 'https://langitaero.com').replace(/\/+$/, ''),
     defaultOgImage: configuredOgImage || '/og-image.png',
     twitterHandle: '',
   },

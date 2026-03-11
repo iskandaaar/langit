@@ -1,0 +1,84 @@
+---
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTASection from '../../components/CTASection.astro';
+import { getArticleBySlug, getArticles } from '../../lib/content';
+import { renderPortableText } from '../../lib/portableText';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const articles = await getArticles();
+
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+  }));
+}
+
+const slug = Astro.params.slug;
+if (!slug) throw new Error('Missing article slug.');
+
+const article = await getArticleBySlug(slug);
+if (!article) return Astro.redirect('/');
+
+const allArticles = await getArticles();
+const relatedArticles = allArticles.filter((entry) => entry.slug !== article.slug).slice(0, 3);
+const bodyHtml = renderPortableText(article.body);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: article.title,
+  description: article.seoDescription,
+  datePublished: article.publishedAt,
+  author: {
+    '@type': 'Organization',
+    name: article.author,
+  },
+};
+---
+
+<BaseLayout title={article.seoTitle} description={article.seoDescription} jsonLd={jsonLd}>
+  <Breadcrumbs
+    items={[
+      { label: 'Home', href: '/' },
+      { label: 'Article' },
+      { label: article.title },
+    ]}
+  />
+
+  <section class="mt-8 max-w-4xl">
+    <p class="kicker">Article</p>
+    <h1 class="mt-5 font-display text-4xl leading-tight text-ink sm:text-5xl">
+      {article.title}
+    </h1>
+    <p class="mt-5 max-w-3xl text-base leading-relaxed text-muted sm:text-lg">
+      {article.excerpt}
+    </p>
+    <p class="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+      Published {article.publishedAt}
+    </p>
+  </section>
+
+  <section class="mt-12">
+    <article class="surface-panel max-w-4xl p-6 sm:p-8">
+      <div class="rich-text" set:html={bodyHtml} />
+    </article>
+  </section>
+
+  <section class="mt-16">
+    <p class="kicker">More Reading</p>
+    <h2 class="mt-4 font-display text-2xl text-ink sm:text-3xl">Related articles in the content cluster</h2>
+    <div class="mt-8 grid gap-5 lg:grid-cols-3">
+      {relatedArticles.map((entry) => <ArticleCard article={entry} />)}
+    </div>
+  </section>
+
+  <CTASection
+    title="Ready to move from research to live sourcing?"
+    description="Use the RFQ path to turn the buying context from this article into a real commercial request."
+    primaryLabel="Submit RFQ"
+    primaryHref="/rfq"
+    secondaryLabel="View Inventory"
+    secondaryHref="/inventory"
+  />
+</BaseLayout>

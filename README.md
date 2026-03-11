@@ -1,11 +1,12 @@
-# Langit Aero Marketing Website
+# Langit Aero Website
 
-Production-ready Astro + Tailwind website for Langit Aero, targeted for Cloudflare Pages with optional webhook-driven email notifications via Cloudflare Pages Functions and MailChannels Email API.
+SEO-first Astro + Tailwind website for Langit Aero, targeted for Cloudflare Pages with Tally-powered RFQ intake, Cloudflare Pages Functions webhook notifications, and a Sanity-ready content layer with local seed fallback.
 
 ## Stack
 
 - Astro (static-first)
 - Tailwind CSS
+- Sanity-ready content fetch layer with local fallback seed content
 - Cloudflare Pages
 - Tally form embed (RFQ)
 - Cloudflare Pages Function (`/api/tally-webhook`)
@@ -23,11 +24,23 @@ Production-ready Astro + Tailwind website for Langit Aero, targeted for Cloudfla
 |   |-- components/
 |   |-- config/
 |   |   `-- site.ts
+|   |-- lib/
+|   |   |-- content.ts
+|   |   |-- queries.ts
+|   |   |-- rfq.ts
+|   |   |-- sanity.ts
+|   |   `-- seed-content.ts
 |   |-- layouts/
 |   |   `-- BaseLayout.astro
 |   |-- pages/
 |   |   |-- index.astro
-|   |   |-- capabilities.astro
+|   |   |-- engine-sourcing.astro
+|   |   |-- aog-support.astro
+|   |   |-- rotable-parts.astro
+|   |   |-- aviation-consumables.astro
+|   |   |-- surplus-inventory.astro
+|   |   |-- inventory/
+|   |   |-- blog/
 |   |   |-- process.astro
 |   |   |-- compliance.astro
 |   |   |-- rfq.astro
@@ -56,14 +69,15 @@ cp .env.example .env
 ```
 
 3. Set `PUBLIC_TALLY_FORM_ID` in `.env` (or in `src/config/site.ts` fallback). `PUBLIC_SITE_URL` defaults to `https://langitaero.com` and can be overridden per environment.
+4. To use Sanity as the live content source, also set `PUBLIC_SANITY_PROJECT_ID` and `PUBLIC_SANITY_DATASET`. If these are absent, the site will build from the seeded content in `src/lib/seed-content.ts`.
 
-4. Start dev server:
+5. Start dev server:
 
 ```bash
 npm run dev
 ```
 
-5. Build production output:
+6. Build production output:
 
 ```bash
 npm run build
@@ -99,6 +113,10 @@ In Cloudflare Pages project settings, add the following variables for both Previ
 - `PUBLIC_TALLY_FORM_ID`
 - `PUBLIC_SITE_URL`
 - `PUBLIC_OG_IMAGE` (optional: absolute URL or root-relative path)
+- `PUBLIC_SANITY_PROJECT_ID` (optional unless using live Sanity content)
+- `PUBLIC_SANITY_DATASET` (optional unless using live Sanity content)
+- `PUBLIC_SANITY_API_VERSION` (optional)
+- `PUBLIC_SANITY_USE_CDN` (optional)
 - `TALLY_WEBHOOK_SECRET`
 - `MAILCHANNELS_API_KEY`
 - `MAILCHANNELS_FROM_EMAIL`

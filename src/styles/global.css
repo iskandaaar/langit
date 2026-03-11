@@ -161,6 +161,15 @@ a {
   background-color: color-mix(in srgb, var(--color-surface) 90%, #f1fcfa 10%);
 }
 
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.28rem 0.6rem;
+  background-color: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+
 @media (min-width: 640px) {
   .proof-strip {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -205,6 +214,33 @@ a {
 
 .marked-list li {
   margin-top: 0.48rem;
+}
+
+.rich-text {
+  color: color-mix(in srgb, var(--color-ink) 92%, transparent);
+}
+
+.rich-text p,
+.rich-text ul,
+.rich-text ol {
+  margin: 0.95rem 0 0;
+  line-height: 1.8;
+}
+
+.rich-text h2,
+.rich-text h3 {
+  margin: 1.4rem 0 0.4rem;
+  font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  color: var(--color-ink);
+}
+
+.rich-text ul,
+.rich-text ol {
+  padding-left: 1.2rem;
+}
+
+.rich-text li + li {
+  margin-top: 0.35rem;
 }
 
 .font-display {

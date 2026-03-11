@@ -1,0 +1,219 @@
+---
+import ArticleCard from '../../components/ArticleCard.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTASection from '../../components/CTASection.astro';
+import InventoryCard from '../../components/InventoryCard.astro';
+import { getFeaturedArticles, getIndexableInventoryItems, getInventoryItemBySlug, getRelatedInventory } from '../../lib/content';
+import { renderPortableText } from '../../lib/portableText';
+import { buildRfqHref } from '../../lib/rfq';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const items = await getIndexableInventoryItems();
+
+  return items.map((item) => ({
+    params: { slug: item.slug },
+  }));
+}
+
+const slug = Astro.params.slug;
+if (!slug) throw new Error('Missing inventory slug.');
+
+const item = await getInventoryItemBySlug(slug);
+if (!item) return Astro.redirect('/inventory');
+
+const [relatedInventory, relatedArticles] = await Promise.all([
+  getRelatedInventory(item, 3),
+  getFeaturedArticles(3),
+]);
+
+const bodyHtml = renderPortableText(item.body);
+const isUnavailable = item.availabilityStatus === 'sold' || item.availabilityStatus === 'expired';
+const categoryHref = `/inventory/${item.category}`;
+const availabilityMap = {
+  available: 'Available',
+  rfq: 'RFQ',
+  on_hold: 'On Hold',
+  sold: 'Unavailable',
+  expired: 'Expired',
+} as const;
+const rfqHref = buildRfqHref({
+  source_type: 'inventory',
+  source_page: `/inventory/${item.slug}`,
+  inventory_slug: item.slug,
+  inventory_title: item.title,
+  part_number: item.partNumber,
+  engine_model: item.engineModel,
+});
+
+const productJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: item.title,
+  description: item.seoDescription,
+  sku: item.partNumber || item.engineModel || item.slug,
+  category: item.category,
+  brand: item.manufacturer
+    ? {
+        '@type': 'Brand',
+        name: item.manufacturer,
+      }
+    : undefined,
+  offers: {
+    '@type': 'Offer',
+    availability:
+      item.availabilityStatus === 'available'
+        ? 'https://schema.org/InStock'
+        : item.availabilityStatus === 'sold' || item.availabilityStatus === 'expired'
+          ? 'https://schema.org/OutOfStock'
+          : 'https://schema.org/LimitedAvailability',
+    url: `https://langitaero.com/inventory/${item.slug}`,
+    seller: {
+      '@type': 'Organization',
+      name: 'Langit Aero',
+    },
+  },
+};
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Inventory',
+      item: 'https://langitaero.com/inventory',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: item.category,
+      item: `https://langitaero.com${categoryHref}`,
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: item.title,
+      item: `https://langitaero.com/inventory/${item.slug}`,
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={item.seoTitle}
+  description={item.seoDescription}
+  noindex={!item.indexable}
+  jsonLd={[productJsonLd, breadcrumbJsonLd]}
+>
+  <Breadcrumbs
+    items={[
+      { label: 'Home', href: '/' },
+      { label: 'Inventory', href: '/inventory' },
+      { label: item.category, href: categoryHref },
+      { label: item.title },
+    ]}
+  />
+
+  <section class="hero-shell relative mt-8 overflow-hidden px-6 py-10 sm:px-10 lg:px-14 lg:py-14">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="relative grid gap-8 lg:grid-cols-[1.2fr_0.85fr] lg:items-start">
+      <div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="status-pill text-xs font-semibold uppercase tracking-[0.16em]">
+            {availabilityMap[item.availabilityStatus]}
+          </span>
+          <span class="text-xs font-semibold uppercase tracking-[0.16em] text-muted">
+            {item.category}
+          </span>
+        </div>
+        <h1 class="mt-5 max-w-3xl font-display text-4xl leading-tight text-ink sm:text-5xl">
+          {item.title}
+        </h1>
+        <p class="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">
+          {item.shortDescription}
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href={rfqHref} class="btn btn-primary">Request Quote</a>
+          <a href={categoryHref} class="btn btn-secondary">Back to {item.category}</a>
+        </div>
+      </div>
+
+      <aside class="surface-panel p-6 sm:p-7">
+        <p class="kicker">Listing Status</p>
+        <div class="mt-5 rounded-xl border border-line/80 bg-canvas/70 p-4">
+          <p class="font-display text-xl text-ink">
+            {isUnavailable ? 'This item is no longer available.' : 'Availability is handled on RFQ.'}
+          </p>
+          <p class="mt-2 text-sm leading-relaxed text-muted">
+            {isUnavailable
+              ? 'The page remains live because it still captures valuable search intent and can route buyers into alternate-stock sourcing.'
+              : 'Commercial terms, documentation scope, and alternate options are reviewed during the inquiry process.'}
+          </p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="mt-16">
+    <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+      <article class="surface-panel p-6 sm:p-8">
+        <p class="kicker">Commercial Context</p>
+        <div class="rich-text mt-4" set:html={bodyHtml} />
+      </article>
+
+      <aside class="surface-panel p-6 sm:p-8">
+        <p class="kicker">Specifications</p>
+        <dl class="mt-5 grid gap-4 text-sm sm:grid-cols-2">
+          {item.partNumber ? <div><dt class="text-xs uppercase tracking-[0.16em] text-muted">Part Number</dt><dd class="mt-1 text-ink">{item.partNumber}</dd></div> : null}
+          {item.engineModel ? <div><dt class="text-xs uppercase tracking-[0.16em] text-muted">Engine Model</dt><dd class="mt-1 text-ink">{item.engineModel}</dd></div> : null}
+          <div><dt class="text-xs uppercase tracking-[0.16em] text-muted">Condition</dt><dd class="mt-1 text-ink">{item.condition}</dd></div>
+          <div><dt class="text-xs uppercase tracking-[0.16em] text-muted">Quantity</dt><dd class="mt-1 text-ink">{item.quantity}</dd></div>
+          <div><dt class="text-xs uppercase tracking-[0.16em] text-muted">Region</dt><dd class="mt-1 text-ink">{item.locationRegion}</dd></div>
+          <div><dt class="text-xs uppercase tracking-[0.16em] text-muted">Certification</dt><dd class="mt-1 text-ink">{item.certification}</dd></div>
+          <div><dt class="text-xs uppercase tracking-[0.16em] text-muted">Trace</dt><dd class="mt-1 text-ink">{item.traceStatus}</dd></div>
+          {item.platform ? <div><dt class="text-xs uppercase tracking-[0.16em] text-muted">Platform</dt><dd class="mt-1 text-ink">{item.platform}</dd></div> : null}
+          {item.manufacturer ? <div><dt class="text-xs uppercase tracking-[0.16em] text-muted">Manufacturer</dt><dd class="mt-1 text-ink">{item.manufacturer}</dd></div> : null}
+          <div><dt class="text-xs uppercase tracking-[0.16em] text-muted">Availability</dt><dd class="mt-1 text-ink">{availabilityMap[item.availabilityStatus]}</dd></div>
+          {item.documentationSummary ? <div><dt class="text-xs uppercase tracking-[0.16em] text-muted">Documentation</dt><dd class="mt-1 text-ink">{item.documentationSummary}</dd></div> : null}
+          {item.llpSummary ? <div><dt class="text-xs uppercase tracking-[0.16em] text-muted">LLP Summary</dt><dd class="mt-1 text-ink">{item.llpSummary}</dd></div> : null}
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section class="mt-16">
+    <div class="flex items-end justify-between gap-6">
+      <div>
+        <p class="kicker">Related Inventory</p>
+        <h2 class="mt-4 font-display text-2xl text-ink sm:text-3xl">Alternate stock and comparable listings</h2>
+      </div>
+      <a href={categoryHref} class="text-sm font-semibold text-accent">View category</a>
+    </div>
+    <div class="mt-8 grid gap-5 lg:grid-cols-3">
+      {relatedInventory.map((relatedItem) => <InventoryCard item={relatedItem} />)}
+    </div>
+  </section>
+
+  <section class="mt-16">
+    <div class="flex items-end justify-between gap-6">
+      <div>
+        <p class="kicker">Support Content</p>
+        <h2 class="mt-4 font-display text-2xl text-ink sm:text-3xl">Articles buyers read before submitting the RFQ</h2>
+      </div>
+    </div>
+    <div class="mt-8 grid gap-5 lg:grid-cols-3">
+      {relatedArticles.map((article) => <ArticleCard article={article} />)}
+    </div>
+  </section>
+
+  <CTASection
+    title={isUnavailable ? 'Need alternate stock for this requirement?' : 'Need a quote or alternate condition?'}
+    description="Use the RFQ flow to request current availability, alternate condition, exchange support, or comparable inventory."
+    primaryLabel="Submit RFQ"
+    primaryHref={rfqHref}
+    secondaryLabel="Contact Desk"
+    secondaryHref="/contact"
+  />
+</BaseLayout>

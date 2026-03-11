@@ -1,0 +1,24 @@
+---
+import InventoryCategoryView from '../../components/InventoryCategoryView.astro';
+import { getFeaturedArticles, getInventoryCategoryPage, getInventoryItemsByCategory } from '../../lib/content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const categoryPage = getInventoryCategoryPage('consumables');
+if (!categoryPage) throw new Error('Missing consumables category page content.');
+
+const [items, relatedArticles] = await Promise.all([
+  getInventoryItemsByCategory('consumables'),
+  getFeaturedArticles(3),
+]);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: categoryPage.title,
+  description: categoryPage.seoDescription,
+};
+---
+
+<BaseLayout title={categoryPage.seoTitle} description={categoryPage.seoDescription} jsonLd={jsonLd}>
+  <InventoryCategoryView categoryPage={categoryPage} items={items} relatedArticles={relatedArticles} />
+</BaseLayout>

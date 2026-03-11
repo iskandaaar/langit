@@ -1,65 +1,57 @@
 ---
-import CTASection from "../components/CTASection.astro";
-import SectionHeader from "../components/SectionHeader.astro";
-import { siteConfig } from "../config/site";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import CTASection from '../components/CTASection.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import { siteConfig } from '../config/site';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout
-  title="Contact"
-  description="Contact Airworthy Supply and route requests to RFQ or AOG desk support."
+  title="Contact Langit Aero"
+  description="Contact Langit Aero for aircraft parts, engines, surplus inventory, and AOG sourcing support."
 >
   <section class="mt-12">
     <SectionHeader
       kicker="Contact"
       headingTag="h1"
-      title="Send RFQ or engage the AOG desk"
-      description="For best response quality, send a structured RFQ first. Use AOG channel for grounded-aircraft urgency."
+      title="Use one contact path for commercial RFQs and AOG escalation."
+      description="The fastest response comes from a complete RFQ, but the contact channel remains available when a buyer needs to confirm fit, route urgency, or discuss surplus inventory handling."
     />
 
-    <article class="surface-panel p-6 sm:p-8">
-      <h3 class="font-display text-xl text-ink">Shared Contact Channel</h3>
-      <p class="mt-3 text-sm leading-relaxed text-muted">
-        Commercial and AOG requests are handled through one intake address.
-      </p>
-      <p class="mt-5 text-sm text-muted">
-        Email:
-        <a
-          class="font-medium text-ink hover:text-accent"
-          href={`mailto:${siteConfig.contact.email}`}
-          >{siteConfig.contact.email}
-        </a>
-      </p>
-    </article>
-
-    <div class="mt-5 grid gap-5 md:grid-cols-2">
-      <article class="surface-panel p-6">
-        <h3 class="font-display text-xl text-ink">Commercial Desk</h3>
+    <div class="grid gap-5 lg:grid-cols-[1fr_1fr]">
+      <article class="surface-panel p-6 sm:p-8">
+        <h2 class="font-display text-2xl text-ink">Primary contact</h2>
         <p class="mt-3 text-sm leading-relaxed text-muted">
-          Use for regular sourcing, repeat demand, pricing follow-up, and
-          planned procurement.
+          For best response quality, send the RFQ first. That route captures part or model identity, condition, certification needs, destination, and timing in one workflow.
         </p>
+        <p class="mt-5 text-sm text-muted">
+          Email:
+          <a class="font-medium text-ink hover:text-accent" href={`mailto:${siteConfig.contact.email}`}>
+            {siteConfig.contact.email}
+          </a>
+        </p>
+        <p class="mt-2 text-sm text-muted">Location: {siteConfig.contact.location}</p>
       </article>
 
-      <article id="aog-desk" class="surface-panel p-6">
-        <h3 class="font-display text-xl text-ink">AOG Desk</h3>
+      <article id="aog-desk" class="surface-panel p-6 sm:p-8">
+        <h2 class="font-display text-2xl text-ink">AOG desk</h2>
         <p class="mt-3 text-sm leading-relaxed text-muted">
-          For urgent grounded-aircraft requests, include part numbers, location,
-          and needed-by time.
+          Grounded-aircraft requests should include needed-by time, destination, part or model identity, and certification requirement.
         </p>
-        <p class="mt-2 text-sm text-muted">
-          Tag your request subject with "AOG" for priority routing.
-        </p>
+        <ul class="marked-list mt-4 list-disc text-sm leading-relaxed text-ink/90">
+          <li>Mark the subject or RFQ as AOG.</li>
+          <li>State whether alternate condition is acceptable.</li>
+          <li>Include the delivery airport or city.</li>
+        </ul>
       </article>
     </div>
   </section>
 
   <CTASection
-    title="Ready to submit a complete request?"
-    description="Use the RFQ page to keep documentation, urgency, and destination context in one workflow."
+    title="Ready to route a real requirement?"
+    description="The RFQ page stays as the single intake path for commercial, urgent, and alternate-stock demand."
     primaryLabel="Submit RFQ"
     primaryHref="/rfq"
-    secondaryLabel="How we work"
-    secondaryHref="/process"
+    secondaryLabel="View Inventory"
+    secondaryHref="/inventory"
   />
 </BaseLayout>
